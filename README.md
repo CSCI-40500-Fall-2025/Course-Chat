@@ -1,2 +1,5 @@
-[![Review Assignment Due Date](https://classroom.github.com/assets/deadline-readme-button-22041afd0340ce965d47ae6ef1cefeee28c7c493a6346c4f15d667ab976d596c.svg)](https://classroom.github.com/a/_KG6YNPd)
-[![Open in Codespaces](https://classroom.github.com/assets/launch-codespace-2972f46106e565e64193e422d61a12cf1da4916b45550586e14ef0a7c637dd04.svg)](https://classroom.github.com/open-in-codespaces?assignment_repo_id=20228513)
+# Project 8
+
+## Product Vision
+
+**FOR** college students **WHO** need real-time communication for collaboration and class updates, **COURSE CHAT** is a web and mobile service **THAT** allows students to register with their institution, add their classes each semester, automatically join classroom group chats, and easily connect with classmates without sharing personal contact information. **UNLIKE** generic chat apps, **OUR** product protects student privacy and builds a focused academic community where collaboration comes naturally.
