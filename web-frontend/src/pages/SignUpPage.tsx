@@ -10,6 +10,12 @@ const SignUpPage = () => {
         <h1 className="text-2xl font-bold mb-4">Sign Up</h1>
         <form className="flex flex-col gap-3">
           <input
+            type="username"
+            placeholder="username"
+            className="border px-3 py-2 rounded"
+            required
+          />
+          <input
             type="email"
             placeholder="Email"
             className="border px-3 py-2 rounded"
