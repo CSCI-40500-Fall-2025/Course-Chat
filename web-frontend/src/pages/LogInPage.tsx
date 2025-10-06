@@ -1,14 +1,15 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
+import { useAuth } from "../contexts/AuthContext";
 
 const LogInPage = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const { loginUser } = useAuth();
 
-  const handleLogin = (e: React.FormEvent) => {
+  const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
-    // Placeholder for login logic
-    console.log("Logging in with:", { email, password });
+    await loginUser(email, password);
   };
 
   return (
@@ -36,12 +37,12 @@ const LogInPage = () => {
           className="border px-3 py-2 rounded"
           required
         />
-        <Link
-          to="/dashboard"
+        <button
+          type="submit"
           className="bg-blue-500 text-white px-3 py-2 rounded hover:bg-blue-600"
         >
           Log In
-        </Link>
+        </button>
       </form>
     </div>
   );
