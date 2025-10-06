@@ -1,14 +1,17 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import Navbar from "../components/Navbar";
+import { useAuth } from "../contexts/AuthContext";
 
 const DashboardPage = () => {
+  const { user } = useAuth();
+  console.log(user);
   return (
     <div className="min-h-screen bg-gray-50 flex flex-col">
       <Navbar />
 
       <main className="flex-1 p-6 mt-10">
-        <h2 className="text-xl font-semibold mb-6">Hey Student</h2>
+        <h2 className="text-xl font-semibold mb-6">Hey {user?.username}</h2>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           <Link
