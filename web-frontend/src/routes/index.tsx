@@ -5,6 +5,7 @@ import SignUpPage from "../pages/SignUpPage";
 import LogInPage from "../pages/LogInPage";
 import DashboardPage from "../pages/DashboardPage";
 import ProfilePage from "../pages/profile/ProfilePage";
+import ProtectedRoute from "./ProtectedRoute";
 
 const routes: RouteObject[] = [
   {
@@ -25,7 +26,11 @@ const routes: RouteObject[] = [
   },
   {
     path: "/dashboard",
-    element: <DashboardPage />,
+    element: (
+      <ProtectedRoute>
+        <DashboardPage />
+      </ProtectedRoute>
+    ),
   },
   {
     path: "/profile",
