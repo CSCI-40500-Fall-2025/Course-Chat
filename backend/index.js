@@ -1,6 +1,6 @@
 import express from "express";
 import connectDB from "./config/db.js";
-import authroutes from "./routes/user-auth.js";
+import userroutes from "./routes/user-auth.js";
 import cors from "cors";
 
 const PORT = process.env.PORT || 5001;
@@ -17,7 +17,7 @@ app.use(
   })
 );
 
-app.use("/api/auth", authroutes);
+app.use("/api", userroutes);
 
 app.get("/", (req, res) => {
   res.status(200).send("Hello registration");
