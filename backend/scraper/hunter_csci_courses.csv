@@ -1,0 +1,160 @@
+code,title,course_id,status
+CSCI 10000,Intro to Computer Applications,0168621,No sections
+CSCI 10N01,Counting by Writing Code,1305831,No sections
+CSCI 10N02,Introduction to Computer Science for Digital Arts,1343281,No sections
+CSCI 11500,Computer Technology in Childhood Education,0244891,No sections
+CSCI 12000,Introduction to Computers,0244901,No sections
+CSCI 12100,Computers & Money:Quant,0244911,Available
+CSCI 12700,Introduction to Computer Science,0244931,Available
+CSCI 127HE,Introduction to Computer Science,0244932,No sections
+CSCI 13200,Practical Unix and Programming with Lab,0244951,Available
+CSCI 13300,Programing for Everyone,0244961,Available
+CSCI 13500,Software Analysis and Design 1,0244971,Available
+CSCI 13600,Supervised Programming Lab,0244981,No sections
+CSCI 15000,Discrete Structures,0245011,Available
+CSCI 16000,Computer Architecture 1,0245031,Available
+CSCI 17200,Topics in Creative Problem Solving,1158461,No sections
+CSCI 18100,Independent Workshop,0245061,Available
+CSCI 18200,Independent Workshop,0245071,Available
+CSCI 18300,Independent Workshop,0245081,Available
+CSCI 22700,Programming Methods,1555141,Available
+CSCI 23200,"Relational Databases and SQL Programming, with Lab",0245151,Available
+CSCI 23300,Program Project Sem Minor,0245161,Available
+CSCI 23500,Software Analysis and Design 2,0245171,Available
+CSCI 26000,Computer Architecture 2,0245211,Available
+CSCI 26500,Computer Theory 1,0245221,Available
+CSCI 26700,Micro Processing & Embedded System,0245231,No sections
+CSCI 27500,Symbolic Logic,1283341,Available
+CSCI 32000,Artificial Intelligence,0245451,No sections
+CSCI 33500,Software Analysis and Design 3,0245511,Available
+CSCI 34000,Operating Systems,0245521,Available
+CSCI 35000,Artificial Intelligence,0245541,Available
+CSCI 35300,Machine Learning,0245941,No sections
+CSCI 35500,Introduction to Linear Programming,0245561,No sections
+CSCI 35700,Techniques of Data Science,1563181,No sections
+CSCI 36000,Computer Architecture 3,0245571,Available
+CSCI 36500,Computer Theory 2,0245581,No sections
+CSCI 37100,Advanced Symbolic Logic,1290111,Available
+CSCI 37200,Logic and Computers,1354751,Available
+CSCI 37700,Non-Classical Logic,1316903,No sections
+CSCI 38500,Numerical Methods 1,0245651,Available
+CSCI 39100,Independent Study in Computer Science,0245671,Available
+CSCI 39200,Independent Study in Computer Science,0245681,Available
+CSCI 39300,Independent Study in Computer Science,0245691,Available
+CSCI 39451,Programmng in Python,0245711,No sections
+CSCI 39452,High Technology Law,1158471,No sections
+CSCI 39453,Topics in Computer Science: Object Oriented Programming using JAVA,1292031,No sections
+CSCI 39454,Special Topics: Android Application Development,1309091,No sections
+CSCI 39500,Topics in Computer Science,0245721,No sections
+CSCI 39533,Flutter App Dev with Intro to ML and AI,1576781,Available
+CSCI 39534,Digital Image Processing,1562701,Available
+CSCI 39535,UI/UX Design,1542441,No sections
+CSCI 39536,Intro to Robotics,1542431,Available
+CSCI 39537,Intro to APIs,1529681,No sections
+CSCI 39538,Advanced Python Programming,1529691,No sections
+CSCI 39539,Intro to Cryptography,1529701,No sections
+CSCI 39540,Flutter App Dev,1529711,Available
+CSCI 39541,Basics of Game Engines,1521931,Available
+CSCI 39542,Intro to Data Science,1521231,Available
+CSCI 39543,Intro to Data Mining,1516671,Available
+CSCI 39544,Digital Product Dev,1516661,Available
+CSCI 39546,The Ethic Challenges of Information Technology,1507361,No sections
+CSCI 39547,Projects in Computer Science,1506471,No sections
+CSCI 39548,Practical Web Development,1466581,Available
+CSCI 39549,Agile Software Development,1466591,No sections
+CSCI 39551,Topics: Software Testing,0245731,No sections
+CSCI 39552,Topics: Coding Theory,0245741,No sections
+CSCI 39553,Topics:Genetic Algs,0245751,No sections
+CSCI 39554,Topics: Networking,0245761,No sections
+CSCI 39555,Topics: Expert System,0245771,No sections
+CSCI 39556,Topic: Neural Networks,0245781,No sections
+CSCI 39557,Hi-Perf.Systems Development,0245791,No sections
+CSCI 39558,Stat Packages- Spssx,0245801,No sections
+CSCI 39559,Topic: Computer Geometry,0245811,No sections
+CSCI 39560,Cmputationl Algebra,0245821,No sections
+CSCI 39561,Algs & Computability,0245831,No sections
+CSCI 39562,Advanced Discrete Structures,0245841,No sections
+CSCI 39563,Advanced Infomation Technology,0245851,No sections
+CSCI 39564,Object-Oriented Technology,0245861,No sections
+CSCI 39565,Rapid Appl. Devel,0245871,No sections
+CSCI 39566,Topics: Practicum,0245881,No sections
+CSCI 39567,Soft.Eng.Pro.Models,0245891,No sections
+CSCI 39568,Top: Internetworking,0245901,No sections
+CSCI 39569,Internet Security,0245911,No sections
+CSCI 39570,Javascript Game Programming,0245921,No sections
+CSCI 39571,Topic:Data Comm & Networking,0245931,No sections
+CSCI 39573,Digital Signal Processing,0245951,No sections
+CSCI 39574,Mcroproc Prg Sys Des,0245961,No sections
+CSCI 39575,Graph Theory,0245971,No sections
+CSCI 39576,Graph Theory 2,0245981,No sections
+CSCI 39577,Computational Media,0245991,No sections
+CSCI 39578,Applied Modeling,0246001,No sections
+CSCI 39579,Data Visualization,0246011,No sections
+CSCI 39580,Location Based Services,1280342,No sections
+CSCI 39580,Topic:Capstone Computer Science,0246021,No sections
+CSCI 39581,Capstone Course:Comp Science,0246031,No sections
+CSCI 39582,Topics:Computer Forensics,1212171,No sections
+CSCI 39583,Topics:Cloud Computing,1212181,No sections
+CSCI 39585,Android Application Development,1319151,No sections
+CSCI 39586,Open Source Software Development,1473171,No sections
+CSCI 39589,Interactive Media,0246041,No sections
+CSCI 39592,Topics: Quantum Computing,1297391,No sections
+CSCI 39593,Topics in Computer Science: Algorithms for Bioinformatics,1316951,No sections
+CSCI 39596,Advanced Networks and Cloud,1372111,No sections
+CSCI 39597,iOS Development,1500341,Available
+CSCI 39598,Intro to Cyber Risk,1501251,Available
+CSCI 40500,Software Engineering,0246051,Available
+CSCI 41500,Data Communications and Networks,0246061,Available
+CSCI 43500,Data Base Management,0246071,Available
+CSCI 45000,Language Translation,0246081,No sections
+CSCI 46000,Advanced Programming Languages,0246091,No sections
+CSCI 48500,Numerical Methods 2,0246121,No sections
+CSCI 49100,Seminar,0246131,No sections
+CSCI 49101,Logic Basis Programming,1471911,No sections
+CSCI 49201,Function Programming in OCaml,1472571,No sections
+CSCI 49300,Seminar,0246151,No sections
+CSCI 49350,System Theory,0246161,No sections
+CSCI 49351,Seminar: Apl,0246171,No sections
+CSCI 49352,Software Management,0246181,No sections
+CSCI 49353,Knowledge Representation,0246191,No sections
+CSCI 49354,Computatnl Ling,0246201,No sections
+CSCI 49355,Algorithm Design & Analysis,0246211,No sections
+CSCI 49356,Computer Graphics,0246221,No sections
+CSCI 49357,Mult-Valued Logic,0246231,No sections
+CSCI 49358,Sem:Comput Geomty,0246241,No sections
+CSCI 49359,Sem:Cryptography,0246251,No sections
+CSCI 49360,Error Crtng Codes,0246261,No sections
+CSCI 49361,Cogntn&Computatn,0246271,No sections
+CSCI 49362,Natural Language Processing,0246281,Available
+CSCI 49363,Software Metric,0246291,No sections
+CSCI 49364,Modern Computing Methods,0246301,No sections
+CSCI 49365,Parallel Computing,0246311,No sections
+CSCI 49366,Unix Tools,0246321,No sections
+CSCI 49367,Adv Sftwre Eng Tp,0246331,No sections
+CSCI 49368,Sftwr Mdl&Dsg Mth,0246341,No sections
+CSCI 49369,Computational Vision,0246351,Available
+CSCI 49370,Graphical User Interface Programming,1160591,No sections
+CSCI 49371,Seminar: Big Data,1291771,No sections
+CSCI 49372,Seminar: Computer Law,0246361,No sections
+CSCI 49373,Windows Programming,0246371,No sections
+CSCI 49374,Constraint Satis,0246381,No sections
+CSCI 49375,Network Security,1111341,No sections
+CSCI 49376,Big Data Technology,1317281,Available
+CSCI 49377,Deep Learning,1472151,No sections
+CSCI 49378,Distr Sys & Cloud,1486501,No sections
+CSCI 49379,Intro to Blockchain,1486511,Available
+CSCI 49380,Intro to Reactive Programming,1507871,Available
+CSCI 49381,Intro to Computer Security,1524561,Available
+CSCI 49382,Advanced Visualization Tools,1529071,No sections
+CSCI 49383,"VR, AR, Mixed Reality",1533131,No sections
+CSCI 49385,Programming Techniques in Scala,1542451,No sections
+CSCI 49386,Cloud Computing,1542901,Available
+CSCI 49387,Distributed AI,1548101,No sections
+CSCI 49389,Research in AI and ML,1555091,No sections
+CSCI 49390,Non-Standard Computers,1561791,Available
+CSCI 49391,Foundations of Game Theory for CS,1567391,No sections
+CSCI 49600,Supervised Research,0246401,Available
+CSCI 49700,Supervised Research,0246411,Available
+CSCI 49800,Supervised Research,0246421,Available
+CSCI 49900,Advanced Applications: A Capstone for Majors,0246431,Available
+SCI 11100,"Brains, Minds, and Machines",1317091,Available
