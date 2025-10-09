@@ -88,3 +88,17 @@ export const login = async (req, res) => {
     return res.status(500).json({ message: "Server error" });
   }
 };
+// test for middleware, get userdata by verifying token/middleware
+
+export const getUserData = async (req, res) => {
+  try {
+    // req.user is already attached by middleware
+    return res.status(200).json({
+      message: "User data fetched successfully",
+      user: req.user,
+    });
+  } catch (error) {
+    console.log("Error with getUserData:", error.message);
+    return res.status(500).json({ message: "Server error" });
+  }
+};

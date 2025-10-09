@@ -6,7 +6,7 @@ const api = "http://localhost:5001/api"; //change with env later
 
 export const loginAPI = async (email: string, password: string) => {
   try {
-    const data = await axios.post<UserProfileToken>(api + "/auth/login", {
+    const data = await axios.post<UserProfileToken>(api + "/login", {
       email: email,
       password: password,
     });
@@ -22,7 +22,7 @@ export const registerAPI = async (
   password: string
 ) => {
   try {
-    const data = await axios.post<UserProfileToken>(api + "/auth/signup", {
+    const data = await axios.post<UserProfileToken>(api + "/signup", {
       username: username,
       email: email,
       password: password,
