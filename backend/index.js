@@ -2,6 +2,8 @@ import express from "express";
 import connectDB from "./config/db.js";
 import userroutes from "./routes/user-auth.js";
 import cors from "cors";
+import courseRoutes from "./routes/courses.js";
+import "dotenv/config";
 
 const PORT = process.env.PORT || 5001;
 const app = express();
@@ -18,6 +20,7 @@ app.use(
 );
 
 app.use("/api", userroutes);
+app.use("/api", courseRoutes);
 
 app.get("/", (req, res) => {
   res.status(200).send("Hello registration");
