@@ -6,6 +6,13 @@ import { parse } from "csv-parse";
 import mongoose from "mongoose";
 import Course from "../models/course.js";
 import connectDB from "../config/db.js";
+import { authMiddleware } from "../middleware/authMiddleware.js";
+import {
+  addCourse,
+  deleteCourse,
+  getCourses,
+  getUsers,
+} from "../controllers/courseController.js";
 
 const router = Router();
 
@@ -96,4 +103,8 @@ fs.watchFile(CSV_PATH, { interval: 2000 }, async () => {
   }
 });
 
+router.get("/courses/:courseid/users", getUsers);
+router.get("/me/courses", authMiddleware, getCourses);
+router.post("/me/addcourse/:courseid", authMiddleware, addCourse);
+router.delete("/me/deletecourse/:courseid", authMiddleware, deleteCourse);
 export default router;
