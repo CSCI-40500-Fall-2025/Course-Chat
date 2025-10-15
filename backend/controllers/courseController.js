@@ -12,12 +12,10 @@ export const getUsers = async (req, res) => {
       return res.status(404).json({ message: "Course not found." });
     }
 
-    return res
-      .status(200)
-      .json({
-        users: courseExists.users,
-        message: "Users grabbed successfully.",
-      });
+    return res.status(200).json({
+      users: courseExists.users,
+      message: "Users grabbed successfully.",
+    });
   } catch (error) {
     console.log("Error in getting users from course: ", error.message);
     return res
