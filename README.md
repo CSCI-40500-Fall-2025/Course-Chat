@@ -55,7 +55,7 @@ Could not host on Netlify/cloud due to access issues (Repository could not be fo
 
 |                                   Shared Infrastructure Services                                   |
 | :------------------------------------------------------------------------------------------------: |
-| MongoDB (users, courses, chat data), AWS + Vercel (Hosting), User Storage (MongoDB, localstorage), |
+| MongoDB (users, courses, chat data), AWS + Vercel (Hosting), User Storage (MongoDB, localStorage), |
 
 ---
 
