@@ -77,3 +77,23 @@ AWS and Vercel (Cloud Hosting)
 Jest (testing)
 
 We are using MongoDB because of familiarity and ease of access as well as the free tier atlas db. Product will be delivered on the web (Vercel hosting). Servers will be hosted on the public cloud (AWS).
+
+## Table 4.4 The importance of architectural design issues
+**Nonfunctional Product Characteristics**
+Includes attributes like security, performance, reliability, and usability that affect all users. Getting these wrong can cause commercial failure.  These qualities often conflict (e.g., performance vs. security), requiring the architect to prioritize trade-offs based on system goals.
+
+**Product Lifetime**
+A long product lifetime requires ongoing updates and adaptability to new technologies. The architecture must be evolvable and modular, enabling continuous revisions without major redesigns
+
+**Software Reuse**
+
+Leveraging components from other products or open-source software saves development time and cost.  This constrains the architecture since it must integrate reused modules, sometimes limiting design flexibility.
+
+**Number of Users**
+
+Internet-based consumer software can experience rapid fluctuations in user numbers.  The system should be scalable, supporting dynamic load balancing and elastic resource allocation to maintain performance.
+
+**Software Compatibility**
+
+Users often require compatibility with other systems and data formats.  Architectural choices (e.g., databases, APIs) must support interoperability and data exchange with external software.
+
