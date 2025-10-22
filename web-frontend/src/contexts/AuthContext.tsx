@@ -56,7 +56,9 @@ export const AuthProvider = ({ children }: Props) => {
           navigate("/dashboard");
         }
       })
-      .catch((e) => toast.warning("Error occurred. Please try again."));
+      .catch((e) =>
+        toast.warning(e.message || "Error occurred. Please try again.")
+      );
   };
   const loginUser = async (email: string, password: string) => {
     await loginAPI(email, password)
@@ -75,7 +77,9 @@ export const AuthProvider = ({ children }: Props) => {
           navigate("/dashboard");
         }
       })
-      .catch((e) => toast.warning("Error occurred. Please try again."));
+      .catch((e) =>
+        toast.warning(e.message || "Error occurred. Please try again.")
+      );
   };
   const isLoggedIn = () => {
     return !!user;
