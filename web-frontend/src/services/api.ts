@@ -1,10 +1,4 @@
-export type Course = {
-  code: string;
-  title: string;
-  course_id: string;
-  status: string;
-};
-
+import { type Course } from "../models/Course";
 const API_BASE = import.meta.env.VITE_API_BASE || "http://localhost:5001";
 
 export async function searchCourses(
