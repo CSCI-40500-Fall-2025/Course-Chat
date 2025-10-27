@@ -3,8 +3,9 @@
   "version": "1.0.0",
   "description": "Node.js backend for course chat app",
   "main": "index.js",
+  "type": "module",
   "scripts": {
-    "test": "jest",
+    "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js --forceExit",
     "dev": "nodemon index.js"
   },
   "author": "",
@@ -21,7 +22,6 @@
     "mongodb": "^6.20.0",
     "mongoose": "^8.19.0"
   },
-  "type": "module",
   "devDependencies": {
     "jest": "^30.2.0",
     "nodemon": "^3.1.10",

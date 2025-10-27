@@ -5,6 +5,9 @@
 
 /** @type {import('jest').Config} */
 const config = {
+  moduleNameMapper: {
+    "^(\\.{1,2}/.*)\\.js$": "$1",
+  },
   // All imported modules in your tests should be mocked automatically
   // automock: false,
 
