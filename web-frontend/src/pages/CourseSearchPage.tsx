@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useState } from "react";
-import { searchCourses, type Course } from "../services/api";
+import { searchCourses } from "../services/api";
+import { type Course } from "../models/Course";
 
 export default function CourseSearchPage() {
   const [q, setQ] = useState("");
@@ -61,7 +62,7 @@ export default function CourseSearchPage() {
       <ul style={{ listStyle: "none", padding: 0, marginTop: 12 }}>
         {items.map((c) => (
           <li
-            key={`${c.course_id}-${c.code}`}
+            key={`${c.courseId}-${c.code}`}
             style={{
               border: "1px solid #eee",
               borderRadius: 8,
@@ -77,18 +78,18 @@ export default function CourseSearchPage() {
                   padding: "2px 6px",
                   borderRadius: 6,
                   background:
-                    c.status?.toLowerCase() === "available"
+                    c.courseStatus?.toLowerCase() === "available"
                       ? "#e6ffed"
                       : "#ffecec",
                   border: "1px solid #ddd",
                 }}
               >
-                {c.status || "Unknown"}
+                {c.courseStatus || "Unknown"}
               </span>
             </div>
             <div style={{ marginTop: 4 }}>{c.title}</div>
             <div style={{ marginTop: 6, fontSize: 12, color: "#666" }}>
-              ID: {String(c.course_id).padStart(7, "0")}
+              ID: {String(c.courseId).padStart(7, "0")}
             </div>
           </li>
         ))}

@@ -1,5 +1,5 @@
 import { type Course } from "../models/Course";
-const API_BASE = import.meta.env.VITE_API_BASE || "http://localhost:5001";
+const API_BASE = "http://localhost:5001"; // REPLACE WITH ENV LATER
 
 export async function searchCourses(
   query: string,
