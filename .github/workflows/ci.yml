@@ -1,0 +1,55 @@
+name: Testing Frontend/Backend
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  backend-tests:
+    name: Running Backend Tests
+    runs-on: ubuntu-latest
+
+    defaults:
+      runs:
+        working-directory: ./backend
+
+      steps:
+        - name: Checkout repo
+          uses: actions/checkout@v4
+
+        - name: Using NodeJS
+          uses: actions/setup-node@v4
+          with:
+            node-version: 22
+
+        - name: Install dependencies
+          uses: npm install
+
+        - name: Run tests
+          uses: npm test
+
+  frontend-tests:
+    name: Running Frontend Tests
+    runs-on: ubuntu-latest
+    defaults:
+      runs:
+        working-directory: ./web-frontend
+
+      steps:
+        - name: Checkout repo
+          uses: actions/checkout@v4
+
+        - name: Using Nodejs
+          uses: actions/setup-node@v4
+          with:
+            node-version: 22
+
+        - name: Install dependencies
+          uses: npm install
+
+        - name: Run tests
+          uses: npm test
