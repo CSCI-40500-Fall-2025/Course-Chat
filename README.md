@@ -1,4 +1,5 @@
 # Project 8
+[![Testing Frontend/Backend](https://github.com/CSCI-40500-Fall-2025/Course-Chat/actions/workflows/ci.yml/badge.svg)](https://github.com/CSCI-40500-Fall-2025/Course-Chat/actions/workflows/ci.yml)
 
 ## Product Vision
 
