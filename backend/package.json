@@ -3,13 +3,16 @@
   "version": "1.0.0",
   "description": "Node.js backend for course chat app",
   "main": "index.js",
+  "type": "module",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js --forceExit",
     "dev": "nodemon index.js"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@babel/preset-env": "^7.28.5",
+    "babel-jest": "^30.2.0",
     "bcrypt": "^6.0.0",
     "cors": "^2.8.5",
     "csv-parse": "^6.1.0",
@@ -19,8 +22,9 @@
     "mongodb": "^6.20.0",
     "mongoose": "^8.19.0"
   },
-  "type": "module",
   "devDependencies": {
-    "nodemon": "^3.1.10"
+    "jest": "^30.2.0",
+    "nodemon": "^3.1.10",
+    "supertest": "^7.1.4"
   }
 }

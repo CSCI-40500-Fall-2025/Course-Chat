@@ -1,19 +1,26 @@
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import User from "../models/user.js";
-import { isPasswordComplex } from "../utils/validatePassword.js";
+import { isPasswordComplex, isUsernameComplex } from "../utils/validators.js";
 
 export const signup = async (req, res) => {
   try {
     const { username, email, password } = req.body;
 
-    if (!isPasswordComplex(password)) {
+    if (!isUsernameComplex(username)) {
       return res
         .status(400)
         .json({
           message:
-            "Password must be a minimum of eight characters, with one uppercase, one lowercase, one number, and one special character",
+            "Username must start with a letter, must be between 3 and 16 characters, and can contain letters, numbers, and underscores.",
         });
+    }
+
+    if (!isPasswordComplex(password)) {
+      return res.status(400).json({
+        message:
+          "Password must be a minimum of eight characters, with one uppercase, one lowercase, one number, and one special character",
+      });
     }
 
     //check for all fields
