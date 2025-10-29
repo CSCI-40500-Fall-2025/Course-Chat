@@ -3,6 +3,7 @@ import { type UserProfile } from "../models/User";
 import { useNavigate } from "react-router-dom";
 import { loginAPI, registerAPI } from "../services/AuthService";
 import { toast } from "react-toastify";
+import { jwtDecode } from "jwt-decode";
 import axios from "axios";
 import { handleError } from "../helpers/ErrorHandler";
 
@@ -17,7 +18,28 @@ type AuthContextType = {
 
 type Props = { children: React.ReactNode };
 
+type JWTPayload = {
+  exp: number;
+  iat?: number;
+  [key: string]: any;
+};
+
 const AuthContext = createContext<AuthContextType>({} as AuthContextType);
+
+const isTokenExpired = (token: string): boolean => {
+  try {
+    const decoded = jwtDecode<JWTPayload>(token);
+    const now = Date.now() / 1000;
+    if (!decoded.exp) {
+      console.log("TOKEN HAS NO EXPIRATION FIELD");
+      return true;
+    }
+    return decoded.exp < now;
+  } catch (err) {
+    console.error("Invalid token", err);
+    return true;
+  }
+};
 
 export const AuthProvider = ({ children }: Props) => {
   const navigate = useNavigate();
@@ -28,12 +50,43 @@ export const AuthProvider = ({ children }: Props) => {
     const user = localStorage.getItem("user");
     const token = localStorage.getItem("token");
     if (user && token) {
-      setUser(JSON.parse(user));
-      setToken(token);
-      axios.defaults.headers.common["Authorization"] = "Bearer " + token;
+      if (isTokenExpired(token)) {
+        console.log("EXPIRED TOKEN: LOGGING OUT");
+        logout();
+      } else {
+        setUser(JSON.parse(user));
+        setToken(token);
+        axios.defaults.headers.common["Authorization"] = "Bearer " + token;
+      }
     }
     setIsReady(true);
   }, []);
+
+  useEffect(() => {
+    if (token) {
+      try {
+        const decoded = jwtDecode<JWTPayload>(token);
+        const now = Date.now();
+        if (!decoded.exp) {
+          console.log("TOKEN HAS NO EXPIRATION FIELD");
+          logout();
+        } else {
+          const expireTime = decoded.exp * 1000 - now;
+          if (expireTime > 0) {
+            const timer = setTimeout(() => {
+              toast.info("Session expired. Please log in again.");
+              logout();
+            }, expireTime);
+            return () => clearTimeout(timer);
+          } else {
+            logout();
+          }
+        }
+      } catch (error) {
+        logout();
+      }
+    }
+  });
 
   const registerUser = async (
     username: string,

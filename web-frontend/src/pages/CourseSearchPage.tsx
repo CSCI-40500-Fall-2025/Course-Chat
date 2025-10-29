@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from "react";
-import { searchCourses } from "../services/api";
+import { searchCourses } from "../services/CourseSearch";
 import { type Course } from "../models/Course";
 
 export default function CourseSearchPage() {

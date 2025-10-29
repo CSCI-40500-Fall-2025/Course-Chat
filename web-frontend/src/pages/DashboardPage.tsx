@@ -1,11 +1,17 @@
-import React from "react";
+import { useEffect } from "react";
 import { Link } from "react-router-dom";
 import Navbar from "../components/Navbar";
 import { useAuth } from "../contexts/AuthContext";
+import { useCourseStore } from "../services/CourseStore";
 
 const DashboardPage = () => {
   const { user } = useAuth();
   console.log(user);
+  const { loadCourses, courses } = useCourseStore();
+  useEffect(() => {
+    loadCourses();
+  }, [loadCourses]);
+
   return (
     <div className="min-h-screen bg-gray-50 flex flex-col">
       <Navbar />
@@ -46,6 +52,11 @@ const DashboardPage = () => {
             </p>
           </Link>
         </div>
+        {courses.length > 0 ? (
+          courses.map((course) => <p key={course.code}>{course.title}</p>)
+        ) : (
+          <p>No courses found.</p>
+        )}
       </main>
     </div>
   );
