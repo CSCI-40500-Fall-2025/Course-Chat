@@ -13,6 +13,7 @@ type AuthContextType = {
   loginUser: (email: string, password: string) => void;
   logout: () => void;
   isLoggedIn: () => boolean;
+  isReady: boolean;
 };
 
 type Props = { children: React.ReactNode };
@@ -142,11 +143,23 @@ export const AuthProvider = ({ children }: Props) => {
     localStorage.removeItem("user");
     setUser(null);
     setToken("");
+    delete axios.defaults.headers.common["Authorization"];
+    import("../services/CourseStore").then(({ useCourseStore }) => {
+      useCourseStore.setState({ courses: [] });
+    });
     navigate("/");
   };
   return (
     <AuthContext.Provider
-      value={{ loginUser, user, token, logout, isLoggedIn, registerUser }}
+      value={{
+        loginUser,
+        user,
+        token,
+        logout,
+        isLoggedIn,
+        registerUser,
+        isReady,
+      }}
     >
       {isReady ? children : null}
     </AuthContext.Provider>

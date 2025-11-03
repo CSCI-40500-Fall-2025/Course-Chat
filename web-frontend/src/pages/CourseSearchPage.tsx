@@ -3,6 +3,7 @@ import { searchCourses } from "../services/CourseSearch";
 import { type Course } from "../models/Course";
 import { useCourseStore } from "../services/CourseStore";
 import { useNavigate } from "react-router-dom";
+import { useAuth } from "../contexts/AuthContext";
 
 export default function CourseSearchPage() {
   const [q, setQ] = useState("");
@@ -12,10 +13,15 @@ export default function CourseSearchPage() {
   const [err, setErr] = useState("");
   const { addCourse } = useCourseStore();
   const navigate = useNavigate();
+  const token = localStorage.getItem("token");
 
   const add = (clickedCourse: Course) => {
-    addCourse(clickedCourse);
-    navigate("/dashboard");
+    if (token) {
+      addCourse(clickedCourse, token);
+      navigate("/dashboard");
+    } else {
+      navigate("/login");
+    }
   };
 
   // simple debounce so we don't spam API

@@ -12,9 +12,11 @@ const api = "http://localhost:5001/api"; // change with env later
 
 export const useCourseStore = create<CourseStore>()((set, get) => ({
   courses: [],
-  loadCourses: async () => {
+  loadCourses: async (token?: string) => {
     try {
-      const res = await axios.get<Coursepayload>(api + "/me/courses");
+      const res = await axios.get<Coursepayload>(api + "/me/courses", {
+        headers: token ? { Authorization: `Bearer ${token}` } : {},
+      });
       console.log(res.data);
       set({ courses: res.data.courses ?? [] });
       toast.success(res.data.message);
@@ -22,11 +24,26 @@ export const useCourseStore = create<CourseStore>()((set, get) => ({
       handleError(error);
     }
   },
-  addCourse: async (value: Course) => {
+  addCourse: async (value: Course, token?: string) => {
     try {
-      const res = await axios.post(api + "/me/addcourse/" + value.courseId);
+      const res = await axios.post(api + "/me/addcourse/" + value.courseId, {
+        headers: token ? { Authorization: `Bearer ${token}` } : {},
+      });
       //recall loadCourses since addcourse route returns mongodb reference to the course table
-      await get().loadCourses();
+      await get().loadCourses(token);
+    } catch (error) {
+      handleError(error);
+    }
+  },
+  deleteCourse: async (value: Course, token?: string) => {
+    try {
+      const res = await axios.delete(
+        api + "/me/deletecourse/" + value.courseId,
+        {
+          headers: token ? { Authorization: `Bearer ${token}` } : {},
+        }
+      );
+      await get().loadCourses(token);
     } catch (error) {
       handleError(error);
     }

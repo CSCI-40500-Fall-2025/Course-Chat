@@ -9,9 +9,9 @@ export type Course = {
 
 export type CourseStore = {
     courses: Array<Course>;
-    loadCourses: () => Promise<void>;
-    addCourse: (value: Course) => Promise<void>;
-    //deleteCourse: (value: Course) => Promise<void>;
+    loadCourses: (token?: string) => Promise<void>;
+    addCourse: (value: Course, token?: string) => Promise<void>;
+    deleteCourse: (value: Course, token?: string) => Promise<void>;
 }
 
 export type Coursepayload = {

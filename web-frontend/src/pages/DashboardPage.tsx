@@ -7,14 +7,16 @@ import CourseCard from "../components/CourseCard";
 
 const DashboardPage = () => {
   const navigate = useNavigate();
-  const { user } = useAuth();
+  const { user, isReady, token } = useAuth();
   console.log(user);
   const { loadCourses, courses } = useCourseStore();
   useEffect(() => {
-    if (user) {
-      loadCourses();
+    if (user && isReady && token) {
+      useCourseStore.setState({ courses: [] });
+      console.log(user);
+      loadCourses(token);
     }
-  }, [user]);
+  }, [user?.email, isReady]);
 
   const addCourseButtonHandler = () => {
     navigate("/courses");
@@ -60,6 +62,7 @@ const DashboardPage = () => {
             </p>
           </Link>
         </div>
+
         {/* For now keep the things above but afterwards would be incorporated in CourseCard and deleted */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-10">
           {courses.length > 0 ? (
