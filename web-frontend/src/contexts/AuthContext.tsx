@@ -1,11 +1,10 @@
-import React, { createContext, useState, useEffect, useContext } from "react";
+import React, { createContext, useState, useEffect } from "react";
 import { type UserProfile } from "../models/User";
 import { useNavigate } from "react-router-dom";
 import { loginAPI, registerAPI } from "../services/AuthService";
 import { toast } from "react-toastify";
 import { jwtDecode } from "jwt-decode";
 import axios from "axios";
-import { handleError } from "../helpers/ErrorHandler";
 
 type AuthContextType = {
   user: UserProfile | null;

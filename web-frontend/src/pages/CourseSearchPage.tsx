@@ -1,6 +1,8 @@
 import { useEffect, useMemo, useState } from "react";
 import { searchCourses } from "../services/CourseSearch";
 import { type Course } from "../models/Course";
+import { useCourseStore } from "../services/CourseStore";
+import { useNavigate } from "react-router-dom";
 
 export default function CourseSearchPage() {
   const [q, setQ] = useState("");
@@ -8,6 +10,13 @@ export default function CourseSearchPage() {
   const [items, setItems] = useState<Course[]>([]);
   const [loading, setLoading] = useState(false);
   const [err, setErr] = useState("");
+  const { addCourse } = useCourseStore();
+  const navigate = useNavigate();
+
+  const add = (clickedCourse: Course) => {
+    addCourse(clickedCourse);
+    navigate("/dashboard");
+  };
 
   // simple debounce so we don't spam API
   const debounced = useMemo(() => q, [q]);
@@ -71,7 +80,12 @@ export default function CourseSearchPage() {
             }}
           >
             <div style={{ display: "flex", justifyContent: "space-between" }}>
-              <strong>{c.code}</strong>
+              <strong
+                className="hover:cursor-pointer hover:underline"
+                onClick={() => add(c)}
+              >
+                {c.code}
+              </strong>
               <span
                 style={{
                   fontSize: 12,
