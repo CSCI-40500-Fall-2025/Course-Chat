@@ -1,11 +1,26 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React, { useEffect } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import Navbar from "../components/Navbar";
 import { useAuth } from "../contexts/AuthContext";
+import { useCourseStore } from "../services/CourseStore";
+import CourseCard from "../components/CourseCard";
 
 const DashboardPage = () => {
-  const { user } = useAuth();
-  console.log(user);
+  const navigate = useNavigate();
+  const { user, isReady, token } = useAuth();
+  const { loadCourses, courses } = useCourseStore();
+  useEffect(() => {
+    if (user && isReady && token) {
+      useCourseStore.setState({ courses: [] });
+      console.log(user);
+      loadCourses(token);
+    }
+  }, [user?.email, isReady]);
+
+  const addCourseButtonHandler = () => {
+    navigate("/courses");
+  };
+
   return (
     <div className="min-h-screen bg-gray-50 flex flex-col">
       <Navbar />
@@ -45,6 +60,29 @@ const DashboardPage = () => {
               Stay up to date with announcements and deadlines.
             </p>
           </Link>
+        </div>
+
+        {/* For now keep the things above but afterwards would be incorporated in CourseCard and deleted */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-10">
+          {courses.length > 0 ? (
+            courses.map((course) => (
+              <CourseCard
+                key={course.courseId}
+                code={course.code}
+                title={course.title}
+                courseId={course.courseId}
+                courseStatus={course.courseStatus}
+              />
+            ))
+          ) : (
+            <p></p>
+          )}
+          <button
+            onClick={addCourseButtonHandler}
+            className="flex items-center justify-center h-48 bg-gray-200 rounded-2xl hover:shadow-lg hover:bg-gray-300 hover:cursor-pointer transition-all text-5xl font-bold text-gray-700"
+          >
+            +
+          </button>
         </div>
       </main>
     </div>

@@ -8,12 +8,10 @@ export const signup = async (req, res) => {
     const { username, email, password } = req.body;
 
     if (!isUsernameComplex(username)) {
-      return res
-        .status(400)
-        .json({
-          message:
-            "Username must start with a letter, must be between 3 and 16 characters, and can contain letters, numbers, and underscores.",
-        });
+      return res.status(400).json({
+        message:
+          "Username must start with a letter, must be between 3 and 16 characters, and can contain letters, numbers, and underscores.",
+      });
     }
 
     if (!isPasswordComplex(password)) {

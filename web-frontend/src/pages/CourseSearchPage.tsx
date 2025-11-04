@@ -1,6 +1,9 @@
 import { useEffect, useMemo, useState } from "react";
-import { searchCourses } from "../services/api";
+import { searchCourses } from "../services/CourseSearch";
 import { type Course } from "../models/Course";
+import { useCourseStore } from "../services/CourseStore";
+import { useNavigate } from "react-router-dom";
+import { useAuth } from "../contexts/AuthContext";
 
 export default function CourseSearchPage() {
   const [q, setQ] = useState("");
@@ -8,6 +11,18 @@ export default function CourseSearchPage() {
   const [items, setItems] = useState<Course[]>([]);
   const [loading, setLoading] = useState(false);
   const [err, setErr] = useState("");
+  const { courses, addCourse } = useCourseStore();
+  const navigate = useNavigate();
+  const token = localStorage.getItem("token");
+
+  const add = (clickedCourse: Course) => {
+    if (token) {
+      addCourse(clickedCourse, token);
+      navigate("/dashboard");
+    } else {
+      navigate("/login");
+    }
+  };
 
   // simple debounce so we don't spam API
   const debounced = useMemo(() => q, [q]);
@@ -21,7 +36,13 @@ export default function CourseSearchPage() {
         setLoading(true);
         setErr("");
         const data = await searchCourses(debounced, onlyAvailable, 50);
-        setItems(data);
+        const userCourseIds = new Set(
+          courses.map((c) => c.courseId)
+        );
+        const filtered = data.filter(
+          (course) => !userCourseIds.has(course.courseId)
+        );
+        setItems(filtered);
       } catch (e: any) {
         setErr(e?.message ?? "Search failed");
       } finally {
@@ -71,7 +92,12 @@ export default function CourseSearchPage() {
             }}
           >
             <div style={{ display: "flex", justifyContent: "space-between" }}>
-              <strong>{c.code}</strong>
+              <strong
+                className="hover:cursor-pointer hover:underline"
+                onClick={() => add(c)}
+              >
+                {c.code}
+              </strong>
               <span
                 style={{
                   fontSize: 12,
