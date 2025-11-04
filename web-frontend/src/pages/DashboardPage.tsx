@@ -4,7 +4,7 @@ import Navbar from "../components/Navbar";
 import { useAuth } from "../contexts/AuthContext";
 import { useCourseStore } from "../services/CourseStore";
 import CourseCard from "../components/CourseCard";
-
+//
 const DashboardPage = () => {
   const navigate = useNavigate();
   const { user, isReady, token } = useAuth();
