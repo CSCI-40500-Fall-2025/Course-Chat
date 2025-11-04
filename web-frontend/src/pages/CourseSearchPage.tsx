@@ -11,7 +11,7 @@ export default function CourseSearchPage() {
   const [items, setItems] = useState<Course[]>([]);
   const [loading, setLoading] = useState(false);
   const [err, setErr] = useState("");
-  const { addCourse } = useCourseStore();
+  const { courses, addCourse } = useCourseStore();
   const navigate = useNavigate();
   const token = localStorage.getItem("token");
 
@@ -36,7 +36,13 @@ export default function CourseSearchPage() {
         setLoading(true);
         setErr("");
         const data = await searchCourses(debounced, onlyAvailable, 50);
-        setItems(data);
+        const userCourseIds = new Set(
+          courses.map((c) => c.courseId)
+        );
+        const filtered = data.filter(
+          (course) => !userCourseIds.has(course.courseId)
+        );
+        setItems(filtered);
       } catch (e: any) {
         setErr(e?.message ?? "Search failed");
       } finally {

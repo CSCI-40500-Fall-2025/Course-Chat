@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useState } from "react";
 import { searchCourses } from "../services/CourseSearch";
 import { type Course } from "../models/Course";
+import { useCourseStore } from "../services/CourseStore";
 
 export default function CourseSearchPage() {
   const [q, setQ] = useState("");
@@ -8,6 +9,7 @@ export default function CourseSearchPage() {
   const [items, setItems] = useState<Course[]>([]);
   const [loading, setLoading] = useState(false);
   const [err, setErr] = useState("");
+  const { courses } = useCourseStore();
 
   // simple debounce
   const debounced = useMemo(() => q, [q]);
@@ -17,7 +19,15 @@ export default function CourseSearchPage() {
         setLoading(true);
         setErr("");
         const data = await searchCourses(debounced, onlyAvailable, 50);
-        setItems(data);
+        //filter for courses already in courses for user
+        const userCourseIds = new Set(
+          courses.map((c) => c.courseId)
+        );
+        const filtered = data.filter(
+          (course) => !userCourseIds.has(course.courseId)
+        );
+
+        setItems(filtered);
       } catch (e: any) {
         setErr(e?.message ?? "Search failed");
       } finally {
@@ -25,7 +35,7 @@ export default function CourseSearchPage() {
       }
     }, 300);
     return () => clearTimeout(t);
-  }, [debounced, onlyAvailable]);
+  }, [debounced, onlyAvailable, courses]);
 
   return (
     <div style={{ maxWidth: 800, margin: "2rem auto", padding: "1rem" }}>

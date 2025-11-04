@@ -8,7 +8,6 @@ import CourseCard from "../components/CourseCard";
 const DashboardPage = () => {
   const navigate = useNavigate();
   const { user, isReady, token } = useAuth();
-  console.log(user);
   const { loadCourses, courses } = useCourseStore();
   useEffect(() => {
     if (user && isReady && token) {

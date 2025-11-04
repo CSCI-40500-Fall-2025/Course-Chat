@@ -19,18 +19,21 @@ export const useCourseStore = create<CourseStore>()((set, get) => ({
       });
       console.log(res.data);
       set({ courses: res.data.courses ?? [] });
-      toast.success(res.data.message);
+      
     } catch (error) {
       handleError(error);
     }
   },
   addCourse: async (value: Course, token?: string) => {
     try {
-      const res = await axios.post(api + "/me/addcourse/" + value.courseId, {
+      const res = await axios.post(api + "/me/addcourse/" + value.courseId, 
+        {},
+      {
         headers: token ? { Authorization: `Bearer ${token}` } : {},
       });
       //recall loadCourses since addcourse route returns mongodb reference to the course table
       await get().loadCourses(token);
+      toast.success(res.data.message);
     } catch (error) {
       handleError(error);
     }
@@ -44,6 +47,7 @@ export const useCourseStore = create<CourseStore>()((set, get) => ({
         }
       );
       await get().loadCourses(token);
+      toast.success(res.data.message);
     } catch (error) {
       handleError(error);
     }
