@@ -14,6 +14,7 @@ type AuthContextType = {
   logout: () => void;
   isLoggedIn: () => boolean;
   isReady: boolean;
+  updateProfileImage: (newImageURL: string) => void;
 };
 
 type Props = { children: React.ReactNode };
@@ -101,6 +102,7 @@ export const AuthProvider = ({ children }: Props) => {
           const userObj = {
             username: res?.data.user.username,
             email: res?.data.user.email,
+            profileImageURL: res?.data.user.profileImageURL,
           };
           localStorage.setItem("user", JSON.stringify(userObj));
           setToken(res?.data.token!);
@@ -122,6 +124,7 @@ export const AuthProvider = ({ children }: Props) => {
           const userObj = {
             username: res?.data.user.username,
             email: res?.data.user.email,
+            profileImageURL: res?.data.user.profileImageURL,
           };
           localStorage.setItem("user", JSON.stringify(userObj));
           setToken(res?.data.token!);
@@ -149,6 +152,12 @@ export const AuthProvider = ({ children }: Props) => {
     });
     navigate("/");
   };
+  const updateProfileImage = (newImageURL: string) => {
+    if (!user) return;
+    const updatedUser = { ...user, profileImageURL: newImageURL };
+    setUser(updatedUser);
+    localStorage.setItem("user", JSON.stringify(updatedUser));
+  };
   return (
     <AuthContext.Provider
       value={{
@@ -159,6 +168,7 @@ export const AuthProvider = ({ children }: Props) => {
         isLoggedIn,
         registerUser,
         isReady,
+        updateProfileImage,
       }}
     >
       {isReady ? children : null}

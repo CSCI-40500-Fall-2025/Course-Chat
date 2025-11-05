@@ -4,13 +4,16 @@ import userroutes from "./routes/user-auth.js";
 import cors from "cors";
 import courseRoutes from "./routes/courses.js";
 import "dotenv/config";
+import { connectCloudinary } from "./config/cloudinary.js";
 
 const PORT = process.env.PORT || 5001;
 const app = express();
 
 connectDB();
+connectCloudinary();
 
-app.use(express.json());
+app.use(express.json({ limit: "5mb" }));
+app.use(express.urlencoded({ limit: "5mb", extended: true }));
 
 app.use(
   cors({

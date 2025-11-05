@@ -14,6 +14,10 @@ const UserSchema = new Schema({
     type: String,
     required: true,
   },
+  profileImageURL: {
+    type: String,
+    required: false,
+  },
   courses: [
     {
       type: mongoose.Schema.Types.ObjectId,

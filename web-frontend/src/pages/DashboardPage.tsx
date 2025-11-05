@@ -12,7 +12,7 @@ const DashboardPage = () => {
   useEffect(() => {
     if (user && isReady && token) {
       useCourseStore.setState({ courses: [] });
-      console.log(user);
+
       loadCourses(token);
     }
   }, [user?.email, isReady]);

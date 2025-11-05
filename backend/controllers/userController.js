@@ -2,6 +2,7 @@ import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import User from "../models/user.js";
 import { isPasswordComplex, isUsernameComplex } from "../utils/validators.js";
+import { v2 as cloudinary } from "cloudinary";
 
 export const signup = async (req, res) => {
   try {
@@ -40,6 +41,8 @@ export const signup = async (req, res) => {
       username,
       email,
       password: hashedPassword,
+      profileImageURL:
+        "https://res.cloudinary.com/dmicnvn4v/image/upload/v1762366312/default-avatar-icon-of-social-media-user-vector_reklhm.jpg",
     });
     await newUser.save();
 
@@ -55,6 +58,8 @@ export const signup = async (req, res) => {
         id: newUser._id,
         username: newUser.username,
         email: newUser.email,
+        profileImageURL:
+          "https://res.cloudinary.com/dmicnvn4v/image/upload/v1762366312/default-avatar-icon-of-social-media-user-vector_reklhm.jpg",
       },
       token,
     });
@@ -95,6 +100,7 @@ export const login = async (req, res) => {
         id: user._id,
         username: user.username,
         email: user.email,
+        profileImageURL: user.profileImageURL,
       },
       token,
     });
@@ -103,6 +109,41 @@ export const login = async (req, res) => {
     return res.status(500).json({ message: "Server error" });
   }
 };
+
+export const upload = async (req, res) => {
+  try {
+    const { email } = req.user;
+    const { profileImageURL } = req.body;
+    if (!profileImageURL) {
+      return res
+        .status(400)
+        .json({ message: "Image URL required for upload." });
+    }
+    const uploadResult = await cloudinary.uploader.upload(profileImageURL, {
+      folder: "profile_images",
+      public_id: email,
+      overwrite: true,
+    });
+    const updatedUser = await User.findOneAndUpdate(
+      { email },
+      { $set: { profileImageURL: uploadResult.secure_url } },
+      { new: true }
+    );
+
+    return res.status(200).json({
+      message: "Image uploaded successfully",
+      user: {
+        username: updatedUser.username,
+        email: updatedUser.email,
+        profileImageURL: updatedUser.profileImageURL,
+      },
+    });
+  } catch (error) {
+    console.log(`Uploading Error: ${error.message}`);
+    return res.status(500).json({ message: "Server error during upload" });
+  }
+};
+
 // test for middleware, get userdata by verifying token/middleware
 
 export const getUserData = async (req, res) => {
