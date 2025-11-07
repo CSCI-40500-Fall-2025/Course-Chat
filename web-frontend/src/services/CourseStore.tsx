@@ -7,8 +7,9 @@ import {
 import { handleError } from "../helpers/ErrorHandler";
 import { create } from "zustand";
 import { toast } from "react-toastify";
+import { getAPIBaseURL } from "../config/config";
 
-const api = "http://localhost:5001/api"; // change with env later
+const api = getAPIBaseURL();
 
 export const useCourseStore = create<CourseStore>()((set, get) => ({
   courses: [],
@@ -19,18 +20,19 @@ export const useCourseStore = create<CourseStore>()((set, get) => ({
       });
       console.log(res.data);
       set({ courses: res.data.courses ?? [] });
-      
     } catch (error) {
       handleError(error);
     }
   },
   addCourse: async (value: Course, token?: string) => {
     try {
-      const res = await axios.post(api + "/me/addcourse/" + value.courseId, 
+      const res = await axios.post(
+        api + "/me/addcourse/" + value.courseId,
         {},
-      {
-        headers: token ? { Authorization: `Bearer ${token}` } : {},
-      });
+        {
+          headers: token ? { Authorization: `Bearer ${token}` } : {},
+        }
+      );
       //recall loadCourses since addcourse route returns mongodb reference to the course table
       await get().loadCourses(token);
       toast.success(res.data.message);

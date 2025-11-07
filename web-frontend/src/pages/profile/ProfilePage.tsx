@@ -3,8 +3,9 @@ import { useAuth } from "../../contexts/AuthContext";
 import { useState, type ChangeEvent } from "react";
 import axios from "axios";
 import { toast } from "react-toastify";
+import { getAPIBaseURL } from "../../config/config";
 
-const api = "http://localhost:5001/api"; // change with env later
+const api = getAPIBaseURL();
 
 const ProfilePage = () => {
   const { user, token, updateProfileImage } = useAuth();

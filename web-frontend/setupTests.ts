@@ -10,5 +10,12 @@ jest.mock("./src/contexts/AuthContext", () => ({
     }),
 }));
 
+// mock the failed tests in __tests__
+jest.mock('./src/services/AuthService', () => ({
+  loginAPI: jest.fn(() => Promise.reject({ response: { status: 401 } })),
+  registerAPI: jest.fn(() => Promise.reject({ response: { status: 400 } })),
+}));
 
-  
+jest.mock('./src/config/config', () => ({
+  getAPIBaseURL: () => 'http://localhost:5001/api',
+}));
