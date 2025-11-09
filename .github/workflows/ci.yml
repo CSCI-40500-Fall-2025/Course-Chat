@@ -1,4 +1,4 @@
-name: Testing Frontend/Backend
+name: CI
 
 on:
   push:
