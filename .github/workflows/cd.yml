@@ -22,4 +22,4 @@ jobs:
       - name: Render Deployment trigger frontend
         run: curl -X POST "$RENDER_FRONTEND_DEPLOY_HOOK_URL"
         env:
-          RENDER_DEPLOY_HOOK_URL: ${{ secrets.RENDER_FRONTEND_DEPLOY_HOOK_URL }}
+          RENDER_FRONTEND_DEPLOY_HOOK_URL: ${{ secrets.RENDER_FRONTEND_DEPLOY_HOOK_URL }}
