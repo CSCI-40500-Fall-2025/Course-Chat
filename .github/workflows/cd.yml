@@ -23,3 +23,16 @@ jobs:
         run: curl -X POST "$RENDER_FRONTEND_DEPLOY_HOOK_URL"
         env:
           RENDER_FRONTEND_DEPLOY_HOOK_URL: ${{ secrets.RENDER_FRONTEND_DEPLOY_HOOK_URL }}
+  create-deployment:
+    needs: [backend-deploy, frontend-deploy]
+    runs-on: ubuntu-latest
+    permissions:
+      deployments: write
+    steps:
+      - uses: actions/checkout@v4
+      - uses: chrnorm/deployment-action@v2
+      with:
+        token: ${{ secrets.GITHUB_TOKEN }}
+        environment: production
+        environment-url: https://course-chat-frontend.onrender.com
+        description: Render deployment
