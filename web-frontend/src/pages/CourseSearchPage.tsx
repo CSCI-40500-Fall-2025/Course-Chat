@@ -3,7 +3,6 @@ import { searchCourses } from "../services/CourseSearch";
 import { type Course } from "../models/Course";
 import { useCourseStore } from "../services/CourseStore";
 import { useNavigate } from "react-router-dom";
-import { useAuth } from "../contexts/AuthContext";
 
 export default function CourseSearchPage() {
   const [q, setQ] = useState("");
@@ -36,9 +35,7 @@ export default function CourseSearchPage() {
         setLoading(true);
         setErr("");
         const data = await searchCourses(debounced, onlyAvailable, 50);
-        const userCourseIds = new Set(
-          courses.map((c) => c.courseId)
-        );
+        const userCourseIds = new Set(courses.map((c) => c.courseId));
         const filtered = data.filter(
           (course) => !userCourseIds.has(course.courseId)
         );
