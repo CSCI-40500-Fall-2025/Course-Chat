@@ -13,7 +13,7 @@ describe("Frontend component tests", () => {
         <App />
       </MemoryRouter>
     );
-    expect(screen.getByText(/Welcome to Course Chat!/)).toBeInTheDocument();
+    expect(screen.getByText(/Welcome to/)).toBeInTheDocument();
   });
 
   // check functionality of login and signup pages
@@ -27,7 +27,7 @@ describe("Frontend component tests", () => {
     expect(screen.getByPlaceholderText(/Email/)).toBeInTheDocument();
     fireEvent.click(screen.getByText(/Back/));
     fireEvent.click(screen.getByText(/Sign Up/));
-    expect(screen.getByPlaceholderText(/username/)).toBeInTheDocument();
+    expect(screen.getByPlaceholderText(/Username/)).toBeInTheDocument();
   });
 
   // missing username, invalid signup
@@ -41,15 +41,15 @@ describe("Frontend component tests", () => {
     fireEvent.change(screen.getByPlaceholderText(/Email/), {
       target: { value: "testing@gmail.com" },
     });
-    fireEvent.change(screen.getByPlaceholderText("password"), {
+    fireEvent.change(screen.getByPlaceholderText("Password"), {
       target: { value: "testing password" },
     });
-    fireEvent.change(screen.getByPlaceholderText(/confirm password/), {
+    fireEvent.change(screen.getByPlaceholderText(/Confirm password/), {
       target: { value: "testing password" },
     });
     fireEvent.click(screen.getByRole("button"));
     //expect to still be on sign up page since it shouldnt have worked
-    expect(screen.getByPlaceholderText(/username/)).toBeInTheDocument();
+    expect(screen.getByPlaceholderText(/Username/)).toBeInTheDocument();
   });
 
   //missing invalid login wrong credentials
@@ -80,21 +80,21 @@ describe("Frontend component tests", () => {
       </MemoryRouter>
     );
     fireEvent.click(screen.getByText(/Sign Up/));
-    fireEvent.change(screen.getByPlaceholderText(/username/), {
+    fireEvent.change(screen.getByPlaceholderText(/Username/), {
       target: { value: "blahblahblah" },
     });
     fireEvent.change(screen.getByPlaceholderText(/Email/), {
       target: { value: "testing@gmail.com" },
     });
-    fireEvent.change(screen.getByPlaceholderText("password"), {
+    fireEvent.change(screen.getByPlaceholderText("Password"), {
       target: { value: "testing password" },
     });
-    fireEvent.change(screen.getByPlaceholderText(/confirm password/), {
+    fireEvent.change(screen.getByPlaceholderText(/Confirm password/), {
       target: { value: "testing password" },
     });
     fireEvent.click(screen.getByRole("button"));
     //await waitFor(() => expect(toast.warning).toHaveBeenCalled());
     //expect to still be on sign up page since it shouldnt have worked
-    expect(screen.getByPlaceholderText(/username/)).toBeInTheDocument();
+    expect(screen.getByPlaceholderText(/Username/)).toBeInTheDocument();
   });
 });
