@@ -31,8 +31,8 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - uses: chrnorm/deployment-action@v2
-      with:
-        token: ${{ secrets.GITHUB_TOKEN }}
-        environment: production
-        environment-url: https://course-chat-frontend.onrender.com
-        description: Render deployment
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          environment: production
+          environment-url: https://course-chat-frontend.onrender.com
+          description: Render deployment
