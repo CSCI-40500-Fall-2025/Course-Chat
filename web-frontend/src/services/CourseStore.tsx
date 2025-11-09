@@ -18,7 +18,7 @@ export const useCourseStore = create<CourseStore>()((set, get) => ({
       const res = await axios.get<Coursepayload>(api + "/me/courses", {
         headers: token ? { Authorization: `Bearer ${token}` } : {},
       });
-      console.log(res.data);
+      // console.log(res.data);
       set({ courses: res.data.courses ?? [] });
     } catch (error) {
       handleError(error);

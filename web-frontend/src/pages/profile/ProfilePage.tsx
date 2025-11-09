@@ -11,13 +11,13 @@ const ProfilePage = () => {
   const { user, token, updateProfileImage } = useAuth();
   const [loading, setLoading] = useState(false);
   const [selectedImage, setSelectedImage] = useState<File | null>(null);
-  const [preview, setPreview] = useState<string | null>(null);
+  //const [preview, setPreview] = useState<string | null>(null);
 
   const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (file) {
       setSelectedImage(file);
-      setPreview(URL.createObjectURL(file)); // Local preview
+      // setPreview(URL.createObjectURL(file)); // Local preview
     }
   };
 
