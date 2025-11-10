@@ -1,13 +1,17 @@
 import express from "express";
 import connectDB from "./config/db.js";
 import userroutes from "./routes/user-auth.js";
+import chatRoutes from "./routes/chat.js";
 import cors from "cors";
 import courseRoutes from "./routes/courses.js";
 import "dotenv/config";
 import { connectCloudinary } from "./config/cloudinary.js";
+import { initSocket } from "./chat/socket.js";
+import http from "http";
 
 const PORT = process.env.PORT || 5001;
 const app = express();
+const server = http.createServer(app);
 
 connectDB();
 connectCloudinary();
@@ -28,10 +32,13 @@ app.use(
 
 app.use("/api", userroutes);
 app.use("/api", courseRoutes);
+app.use("/api", chatRoutes);
 
 app.get("/", (req, res) => {
   res.status(200).send("Hello registration");
 });
+
+initSocket(server);
 
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
