@@ -30,15 +30,16 @@ jobs:
       deployments: write
     steps:
       - uses: actions/checkout@v4
+
       - name: Deployment Record
+        id: deployment
         uses: chrnorm/deployment-action@v2
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           environment: production
           environment-url: https://course-chat-frontend.onrender.com
           description: Render deployment
-      - name: Debug Deployment ID
-        run: echo "Deployment ID is ${{ steps.deployments.outputs.deployment_id  }}"
+
       - name: Update deployment status (success)
         if: success()
         uses: chrnorm/deployment-status@v2
@@ -46,7 +47,8 @@ jobs:
           token: ${{ secrets.GITHUB_TOKEN }}
           environment-url: https://course-chat-frontend.onrender.com
           state: success
-          deployment-id: ${{ steps.deployments.outputs.deployment_id }}
+          deployment-id: ${{ steps.deployment.outputs.deployment_id }}
+
       - name: Update deployment status (failure)
         if: failure()
         uses: chrnorm/deployment-status@v2
@@ -54,4 +56,4 @@ jobs:
           token: ${{ secrets.GITHUB_TOKEN }}
           environment-url: https://course-chat-frontend.onrender.com
           state: failure
-          deployment-id: ${{ steps.deployments.outputs.deployment_id }}
+          deployment-id: ${{ steps.deployment.outputs.deployment_id }}
