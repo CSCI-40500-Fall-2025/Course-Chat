@@ -12,7 +12,6 @@ const DashboardPage = () => {
   useEffect(() => {
     if (user && isReady && token) {
       useCourseStore.setState({ courses: [] });
-
       loadCourses(token);
     }
   }, [user?.email, isReady]);
@@ -68,6 +67,7 @@ const DashboardPage = () => {
             courses.map((course) => (
               <CourseCard
                 key={course.courseId}
+                _id={course._id}
                 code={course.code}
                 title={course.title}
                 courseId={course.courseId}

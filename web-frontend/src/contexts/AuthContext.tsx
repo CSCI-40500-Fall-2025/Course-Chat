@@ -100,6 +100,7 @@ export const AuthProvider = ({ children }: Props) => {
           console.log(res.data);
           localStorage.setItem("token", res?.data.token);
           const userObj = {
+            _id: res?.data.user._id,
             username: res?.data.user.username,
             email: res?.data.user.email,
             profileImageURL: res?.data.user.profileImageURL,
@@ -122,6 +123,7 @@ export const AuthProvider = ({ children }: Props) => {
           console.log(res.data);
           localStorage.setItem("token", res?.data.token);
           const userObj = {
+            _id: res?.data.user._id,
             username: res?.data.user.username,
             email: res?.data.user.email,
             profileImageURL: res?.data.user.profileImageURL,

@@ -15,7 +15,7 @@ export const useCourseStore = create<CourseStore>()((set, get) => ({
   courses: [],
   loadCourses: async (token?: string) => {
     try {
-      const res = await axios.get<Coursepayload>(api + "/me/courses", {
+      const res = await axios.get<Coursepayload>(api + "/api/me/courses", {
         headers: token ? { Authorization: `Bearer ${token}` } : {},
       });
       // console.log(res.data);
@@ -27,7 +27,7 @@ export const useCourseStore = create<CourseStore>()((set, get) => ({
   addCourse: async (value: Course, token?: string) => {
     try {
       const res = await axios.post(
-        api + "/me/addcourse/" + value.courseId,
+        api + "/api/me/addcourse/" + value.courseId,
         {},
         {
           headers: token ? { Authorization: `Bearer ${token}` } : {},
@@ -43,7 +43,7 @@ export const useCourseStore = create<CourseStore>()((set, get) => ({
   deleteCourse: async (value: Course, token?: string) => {
     try {
       const res = await axios.delete(
-        api + "/me/deletecourse/" + value.courseId,
+        api + "/api/me/deletecourse/" + value.courseId,
         {
           headers: token ? { Authorization: `Bearer ${token}` } : {},
         }

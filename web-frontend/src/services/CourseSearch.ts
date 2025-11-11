@@ -13,7 +13,7 @@ export async function searchCourses(
     limit: String(limit),
   });
 
-  const res = await fetch(`${API_BASE}/courses?${params.toString()}`);
+  const res = await fetch(`${API_BASE}/api/courses?${params.toString()}`);
   if (!res.ok) throw new Error(`API ${res.status}`);
   const data = await res.json();
   return data.items as Course[];

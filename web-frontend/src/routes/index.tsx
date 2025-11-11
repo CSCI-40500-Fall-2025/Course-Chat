@@ -7,6 +7,7 @@ import DashboardPage from "../pages/DashboardPage";
 import ProfilePage from "../pages/profile/ProfilePage";
 import ProtectedRoute from "./ProtectedRoute";
 import CourseSearchPage from "../pages/CourseSearchPage";
+import CourseChatPage from "../pages/CourseChatPage";
 
 const routes: RouteObject[] = [
   {
@@ -37,8 +38,13 @@ const routes: RouteObject[] = [
     path: "/profile",
     element: <ProfilePage />,
   },
-  { path: "/courses", 
-    element: <CourseSearchPage /> 
+  {
+    path: "/courses",
+    element: <CourseSearchPage />,
+  },
+  {
+    path: "/:code/chat",
+    element: <CourseChatPage />,
   },
 ];
 

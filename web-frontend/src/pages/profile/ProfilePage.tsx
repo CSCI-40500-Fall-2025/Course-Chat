@@ -34,7 +34,7 @@ const ProfilePage = () => {
         try {
           console.log("Uploading");
           const res = await axios.put(
-            api + "/me/uploadimage",
+            api + "/api/me/uploadimage",
             { profileImageURL: base64Image },
             {
               headers: {

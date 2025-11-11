@@ -7,7 +7,7 @@ const api = getAPIBaseURL();
 
 export const loginAPI = async (email: string, password: string) => {
   try {
-    const data = await axios.post<UserProfileToken>(api + "/login", {
+    const data = await axios.post<UserProfileToken>(api + "/api/login", {
       email: email,
       password: password,
     });
@@ -23,7 +23,7 @@ export const registerAPI = async (
   password: string
 ) => {
   try {
-    const data = await axios.post<UserProfileToken>(api + "/signup", {
+    const data = await axios.post<UserProfileToken>(api + "/api/signup", {
       username: username,
       email: email,
       password: password,
