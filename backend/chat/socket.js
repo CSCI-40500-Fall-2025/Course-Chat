@@ -37,13 +37,11 @@ export const initSocket = (server) => {
 
         chat.messages.push(message._id);
         await chat.save();
-
-        io.to(courseId).emit("recieveMessage", {
-          _id: message._id,
-          sender: userId,
-          content,
-          createdAt: message.createdAt,
-        });
+        const populatedMessage = await message.populate(
+          "sender",
+          "username profileImageURL"
+        );
+        io.to(courseId).emit("recieveMessage", populatedMessage);
       } catch (error) {
         console.error("Error sending message ", error);
       }

@@ -6,3 +6,9 @@ export type Message = {
     content: string;
     createdAt: Date;
 }
+
+export type ChatResponse = {
+    chat_id: string;
+    course: string;
+    messages: Message[];
+}

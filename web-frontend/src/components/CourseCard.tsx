@@ -24,6 +24,8 @@ const CourseCard: React.FC<Course> = (props) => {
     navigate(`/${code}/chat`, { state: { course: props } });
   };
 
+  const statusColor =
+    props.courseStatus === "Available" ? "text-green-500" : "text-red-500";
   return (
     <>
       <div className=" bg-white shadow-md rounded-2xl p-6 hover:shadow-lg transition flex flex-col justify-between">
@@ -51,7 +53,9 @@ const CourseCard: React.FC<Course> = (props) => {
         >
           Join Group Chat <IoChatbubbleEllipsesOutline className="text-lg" />{" "}
         </button>
-        <p className=" mb-1">{props.courseStatus}</p>
+        <p className="mb-1 flex justify-center gap-2">
+          Sections: <span className={statusColor}> {props.courseStatus}</span>
+        </p>
         {/* props.courseId not displayed */}
       </div>
     </>
