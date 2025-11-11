@@ -37,6 +37,8 @@ jobs:
           environment: production
           environment-url: https://course-chat-frontend.onrender.com
           description: Render deployment
+      - name: Debug Deployment ID
+        run: echo "Deployment ID is ${{ steps.create_deployment.outputs.deployment_id }}"
       - name: Mark Deployment Successful
         uses: chrnorm/deployment-status@v2
         with:
