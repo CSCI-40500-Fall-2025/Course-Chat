@@ -1,5 +1,6 @@
 export type UserProfileToken = {
     user: {
+        _id: string;
         username: string;
         email: string;
         profileImageURL: string;
@@ -8,6 +9,7 @@ export type UserProfileToken = {
 };
 
 export type UserProfile = {
+    _id: string;
     username: string;
     email: string;
     profileImageURL: string;

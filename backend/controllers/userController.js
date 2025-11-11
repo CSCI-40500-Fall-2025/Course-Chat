@@ -55,7 +55,7 @@ export const signup = async (req, res) => {
     return res.status(201).json({
       message: "User Created Successfully",
       user: {
-        id: newUser._id,
+        _id: newUser._id,
         username: newUser.username,
         email: newUser.email,
         profileImageURL:
@@ -97,7 +97,7 @@ export const login = async (req, res) => {
     return res.status(200).json({
       message: "User Logged in Successfully",
       user: {
-        id: user._id,
+        _id: user._id,
         username: user.username,
         email: user.email,
         profileImageURL: user.profileImageURL,

@@ -1,0 +1,29 @@
+import Chat from "../models/chat.js";
+import Message from "../models/message.js";
+
+// instead of like in courseController this one uses _id for courseId
+export const getMessages = async (req, res) => {
+  try {
+    const { courseId } = req.params;
+
+    let chat = await Chat.findOne({ course: courseId });
+    if (!chat) {
+      chat = await Chat.create({ course: courseId });
+    }
+
+    const messages = await Message.find({ chat: chat._id })
+      .populate("sender", "username profileImageURL")
+      .sort({ createdAt: 1 });
+
+    return res.status(200).json({
+      chatId: chat._id,
+      course: chat.course,
+      messages,
+    });
+  } catch (error) {
+    console.log("Error getting messages: ", error);
+    return res
+      .status(500)
+      .json({ message: "Server Error: Could not get messages " });
+  }
+};
