@@ -2,6 +2,7 @@ import express from "express";
 import connectDB from "./config/db.js";
 import userroutes from "./routes/user-auth.js";
 import chatRoutes from "./routes/chat.js";
+import announcementRoutes from "./routes/announcements.js";
 import cors from "cors";
 import courseRoutes from "./routes/courses.js";
 import "dotenv/config";
@@ -33,6 +34,7 @@ app.use(
 app.use("/api", userroutes);
 app.use("/api", courseRoutes);
 app.use("/api", chatRoutes);
+app.use("/api", announcementRoutes);
 
 app.get("/", (req, res) => {
   res.status(200).send("Hello registration");

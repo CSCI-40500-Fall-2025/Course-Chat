@@ -8,6 +8,7 @@ import ProfilePage from "../pages/profile/ProfilePage";
 import ProtectedRoute from "./ProtectedRoute";
 import CourseSearchPage from "../pages/CourseSearchPage";
 import CourseChatPage from "../pages/CourseChatPage";
+import AnnouncementsPage from "../pages/AnnouncementsPage";
 
 const routes: RouteObject[] = [
   {
@@ -45,6 +46,10 @@ const routes: RouteObject[] = [
   {
     path: "/:code/chat",
     element: <CourseChatPage />,
+  },
+  {
+    path: "/:code/announcements",
+    element: <AnnouncementsPage />,
   },
 ];
 

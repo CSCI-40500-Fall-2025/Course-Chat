@@ -1,9 +1,12 @@
+import type { Announcement } from "./Announcement";
+
 export type Course = {
     _id: string;
     code: string;
     title: string;
     courseId: string | null;
     courseStatus: string | null;
+    announcements: Announcement[];
 }
 
 // for payload

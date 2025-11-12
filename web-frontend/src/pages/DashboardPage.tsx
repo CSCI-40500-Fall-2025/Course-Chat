@@ -72,6 +72,7 @@ const DashboardPage = () => {
                 title={course.title}
                 courseId={course.courseId}
                 courseStatus={course.courseStatus}
+                announcements={course.announcements}
               />
             ))
           ) : (
