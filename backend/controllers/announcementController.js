@@ -9,6 +9,10 @@ export const addAnnouncement = async (req, res) => {
     const { title, content } = req.body;
     const creator = req.user._id;
 
+    if (!title || !content) {
+      return res.status(400).json({ message: "All fields required" });
+    }
+
     const course = await Course.findById(courseId);
     if (!course)
       return res
@@ -25,9 +29,15 @@ export const addAnnouncement = async (req, res) => {
     course.announcements.push(announcement._id);
     await course.save();
 
-    return res
-      .status(201)
-      .json({ message: "Announcement created successfully.", announcement });
+    const populatedAnnouncement = await announcement.populate(
+      "creator",
+      "username email"
+    );
+
+    return res.status(201).json({
+      message: "Announcement created successfully.",
+      announcement: populatedAnnouncement,
+    });
   } catch (error) {
     console.log("Error adding announcement: ", error.message);
     return res
@@ -60,9 +70,15 @@ export const updateAnnouncement = async (req, res) => {
     announcement.content = content;
     await announcement.save();
 
-    return res
-      .status(200)
-      .json({ message: "Announcement updated successfully", announcement });
+    const populatedAnnouncement = await announcement.populate(
+      "creator",
+      "username email"
+    );
+
+    return res.status(200).json({
+      message: "Announcement updated successfully",
+      announcement: populatedAnnouncement,
+    });
   } catch (error) {
     console.log("Error updating announcement: ", error.message);
     return res
@@ -110,7 +126,7 @@ export const getAnnouncements = async (req, res) => {
     const { courseId } = req.params;
     const course = await Course.findById(courseId).populate({
       path: "announcements",
-      populate: { path: "creator", select: "name email role" },
+      populate: { path: "creator", select: "username email" },
       options: { sort: { createdAt: -1 } },
     });
     if (!course)

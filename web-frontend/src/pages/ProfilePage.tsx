@@ -1,9 +1,9 @@
 import { Link } from "react-router-dom";
-import { useAuth } from "../../contexts/AuthContext";
+import { useAuth } from "../contexts/AuthContext";
 import { useState, type ChangeEvent } from "react";
 import axios from "axios";
 import { toast } from "react-toastify";
-import { getAPIBaseURL } from "../../config/config";
+import { getAPIBaseURL } from "../config/config";
 
 const api = getAPIBaseURL();
 

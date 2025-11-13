@@ -4,7 +4,7 @@ import AboutPage from "../pages/AboutPage";
 import SignUpPage from "../pages/SignUpPage";
 import LogInPage from "../pages/LogInPage";
 import DashboardPage from "../pages/DashboardPage";
-import ProfilePage from "../pages/profile/ProfilePage";
+import ProfilePage from "../pages/ProfilePage";
 import ProtectedRoute from "./ProtectedRoute";
 import CourseSearchPage from "../pages/CourseSearchPage";
 import CourseChatPage from "../pages/CourseChatPage";

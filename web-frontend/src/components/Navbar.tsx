@@ -8,7 +8,9 @@ const Navbar = () => {
   };
   return (
     <header className="bg-blue-600 text-white shadow-md p-4 flex justify-between items-center w-full fixed top-0 left-0 z-50">
-      <h1 className="text-2xl font-bold">Course Chat</h1>
+      <Link to={"/dashboard"}>
+        <h1 className="text-2xl font-bold">Course Chat</h1>{" "}
+      </Link>
       <nav>
         {user && (
           <span className="font-medium">
