@@ -11,6 +11,7 @@ const CourseCard: React.FC<Course> = (props) => {
   const { deleteCourse } = useCourseStore();
   const navigate = useNavigate();
   const token = localStorage.getItem("token");
+  const code = slugify(props.code);
   const delCourse = (value: Course) => {
     if (token) {
       deleteCourse(value, token);
@@ -20,8 +21,11 @@ const CourseCard: React.FC<Course> = (props) => {
   };
 
   const handleJoinChat = () => {
-    const code = slugify(props.code);
     navigate(`/${code}/chat`, { state: { course: props } });
+  };
+
+  const handleJoinAnnouncements = () => {
+    navigate(`/${code}/announcements`, { state: { course: props } });
   };
 
   const statusColor =
@@ -31,7 +35,12 @@ const CourseCard: React.FC<Course> = (props) => {
       <div className=" bg-white shadow-md rounded-2xl p-6 hover:shadow-lg transition flex flex-col justify-between">
         <div className="flex flex-row justify-between">
           <h3 className="text-2xl font-bold text-blue-600 mb-2">
-            {props.code}
+            <button
+              className=" hover:underline hover:cursor-pointer"
+              onClick={handleJoinAnnouncements}
+            >
+              {props.code}
+            </button>
           </h3>
           <div
             className="hover:cursor-pointer transition"

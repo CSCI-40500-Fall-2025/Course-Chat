@@ -24,6 +24,13 @@ const courseSchema = new Schema({
       default: [],
     },
   ],
+  announcements: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Announcement",
+      default: [],
+    },
+  ],
 });
 
 export default mongoose.model("Course", courseSchema);

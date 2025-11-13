@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import Navbar from "../components/Navbar";
 import { useAuth } from "../contexts/AuthContext";
 import { useCourseStore } from "../services/CourseStore";
@@ -25,42 +25,9 @@ const DashboardPage = () => {
       <Navbar />
 
       <main className="flex-1 p-6 mt-10">
-        <h2 className="text-xl font-semibold mb-6">Hey {user?.username}</h2>
-
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          <Link
-            to="/classes"
-            className="bg-white shadow-md rounded-2xl p-6 hover:shadow-lg transition flex flex-col justify-between"
-          >
-            <h3 className="text-lg font-bold text-blue-600 mb-2">My Classes</h3>
-            <p className="text-gray-600">
-              View and manage your enrolled courses.
-            </p>
-          </Link>
-
-          <Link
-            to="/chats"
-            className="bg-white shadow-md rounded-2xl p-6 hover:shadow-lg transition flex flex-col justify-between"
-          >
-            <h3 className="text-lg font-bold text-green-600 mb-2">
-              Class Chats
-            </h3>
-            <p className="text-gray-600">
-              Join discussions and collaborate with classmates.
-            </p>
-          </Link>
-
-          <Link
-            to="/updates"
-            className="bg-white shadow-md rounded-2xl p-6 hover:shadow-lg transition flex flex-col justify-between"
-          >
-            <h3 className="text-lg font-bold text-purple-600 mb-2">Updates</h3>
-            <p className="text-gray-600">
-              Stay up to date with announcements and deadlines.
-            </p>
-          </Link>
-        </div>
-
+        <h2 className="text-2xl font-semibold mt-6 items-center justify-center flex">
+          My courses:
+        </h2>
         {/* For now keep the things above but afterwards would be incorporated in CourseCard and deleted */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-10">
           {courses.length > 0 ? (
@@ -72,6 +39,7 @@ const DashboardPage = () => {
                 title={course.title}
                 courseId={course.courseId}
                 courseStatus={course.courseStatus}
+                announcements={course.announcements}
               />
             ))
           ) : (
