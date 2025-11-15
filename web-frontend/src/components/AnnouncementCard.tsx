@@ -66,7 +66,6 @@ const AnnouncementCard = ({
         },
         { headers: { Authorization: `Bearer ${token}` } }
       );
-      console.log(res.data.announcement);
       onUpdate(res.data.announcement);
       editModalClose();
       toast.success("Announcement edited successfully.");
@@ -84,13 +83,14 @@ const AnnouncementCard = ({
         headers: { Authorization: `Bearer ${token}` },
       });
       onDelete(_id.toString());
+      toast.success("Announcement deleted successfully.");
     } catch (error) {
       toast.warn("Error deleting announcement. Please try again.");
       handleError(error);
     }
   };
   return (
-    <div className="bg-white shadow-md rounded-2xl p-5 border border-gray-100 hover:shadow-lg transition-all duration-200x mt-1">
+    <div className="bg-white shadow-md rounded-2xl p-5 border border-gray-100 hover:shadow-lg transition-all duration-200x mt-1 ">
       <div className="flex justify-between items-start mb-3">
         <h2 className="text-lg font-semibold text-gray-900">{title}</h2>
         <div className="flex gap-2">
@@ -184,7 +184,7 @@ const AnnouncementCard = ({
                 disabled={isSubmitting}
                 className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 hover:cursor-pointer transition-colors disabled:bg-blue-400 disabled:cursor-not-allowed"
               >
-                {isSubmitting ? "Creating..." : "Create"}
+                {isSubmitting ? "Editing..." : "Edit"}
               </button>
             </div>
           </div>
