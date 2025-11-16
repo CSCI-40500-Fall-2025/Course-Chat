@@ -3,6 +3,7 @@ import { searchCourses } from "../services/CourseSearch";
 import { type Course } from "../models/Course";
 import { useCourseStore } from "../services/CourseStore";
 import { useNavigate } from "react-router-dom";
+import Navbar from "../components/Navbar";
 
 export default function CourseSearchPage() {
   const [q, setQ] = useState("");
@@ -50,76 +51,93 @@ export default function CourseSearchPage() {
   }, [debounced, onlyAvailable]);
 
   return (
-    <div style={{ maxWidth: 800, margin: "2rem auto", padding: "1rem" }}>
-      <h2 style={{ marginBottom: 12 }}>Find CSCI Courses</h2>
-      <div style={{ display: "flex", gap: 8, alignItems: "center" }}>
-        <input
-          value={q}
-          onChange={(e) => setQ(e.target.value)}
-          placeholder="Try 'csci 127' or 'intro'"
-          style={{
-            flex: 1,
-            padding: "8px 10px",
-            borderRadius: 6,
-            border: "1px solid #ccc",
-          }}
-        />
-        <label style={{ display: "flex", gap: 6, alignItems: "center" }}>
-          <input
-            type="checkbox"
-            checked={onlyAvailable}
-            onChange={() => setOnlyAvailable((v) => !v)}
-          />
-          Available only
-        </label>
-      </div>
+    <>
+      <div
+        style={{ maxWidth: 800, margin: "2rem auto", padding: "1rem" }}
+        className="dark:bg-zinc-700 min-h-screen min-w-screen dark:text-white"
+      >
+        <Navbar />
+        <div className="flex flex-col justify-center items-center">
+          <h2 style={{ marginBottom: 12 }} className="pt-16">
+            Find CSCI Courses{" "}
+            <span className=" text-xs text-gray-400">(Click title to add)</span>
+          </h2>
+          <div className="flex gap-2 items-center w-full sm:w-3/4 md:w-2/3 lg:w-1/2 mx-auto">
+            <input
+              value={q}
+              onChange={(e) => setQ(e.target.value)}
+              placeholder="Try 'csci 127' or 'intro'"
+              style={{
+                flex: 1,
+                padding: "8px 10px",
+                borderRadius: 6,
+                border: "1px solid #ccc",
+              }}
+            />
+            <label style={{ display: "flex", gap: 6, alignItems: "center" }}>
+              <input
+                type="checkbox"
+                checked={onlyAvailable}
+                onChange={() => setOnlyAvailable((v) => !v)}
+              />
+              Available only
+            </label>
+          </div>
 
-      {loading && <p style={{ marginTop: 12 }}>Loading…</p>}
-      {err && <p style={{ color: "crimson" }}>{err}</p>}
+          {loading && <p style={{ marginTop: 12 }}>Loading…</p>}
+          {err && <p style={{ color: "crimson" }}>{err}</p>}
 
-      <ul style={{ listStyle: "none", padding: 0, marginTop: 12 }}>
-        {items.map((c) => (
-          <li
-            key={`${c.courseId}-${c.code}`}
-            style={{
-              border: "1px solid #eee",
-              borderRadius: 8,
-              padding: "10px 12px",
-              marginBottom: 8,
-            }}
+          <ul
+            style={{ listStyle: "none", padding: 0, marginTop: 12 }}
+            className="w-full sm:w-3/4 md:w-2/3 lg:w-1/2"
           >
-            <div style={{ display: "flex", justifyContent: "space-between" }}>
-              <strong
-                className="hover:cursor-pointer hover:underline"
-                onClick={() => add(c)}
-              >
-                {c.code}
-              </strong>
-              <span
+            {items.map((c) => (
+              <li
+                key={`${c.courseId}-${c.code}`}
                 style={{
-                  fontSize: 12,
-                  padding: "2px 6px",
-                  borderRadius: 6,
-                  background:
-                    c.courseStatus?.toLowerCase() === "available"
-                      ? "#e6ffed"
-                      : "#ffecec",
-                  border: "1px solid #ddd",
+                  border: "1px solid #eee",
+                  borderRadius: 8,
+                  padding: "10px 12px",
+                  marginBottom: 8,
                 }}
               >
-                {c.courseStatus || "Unknown"}
-              </span>
-            </div>
-            <div style={{ marginTop: 4 }}>{c.title}</div>
-            <div style={{ marginTop: 6, fontSize: 12, color: "#666" }}>
-              ID: {String(c.courseId).padStart(7, "0")}
-            </div>
-          </li>
-        ))}
-        {!loading && !err && items.length === 0 && q && (
-          <li style={{ color: "#666", marginTop: 12 }}>No results.</li>
-        )}
-      </ul>
-    </div>
+                <div
+                  style={{ display: "flex", justifyContent: "space-between" }}
+                >
+                  <strong
+                    className="hover:cursor-pointer hover:underline"
+                    onClick={() => add(c)}
+                  >
+                    {c.code}
+                  </strong>
+                  <span
+                    style={{
+                      fontSize: 12,
+                      padding: "2px 6px",
+                      borderRadius: 6,
+                      background:
+                        c.courseStatus?.toLowerCase() === "available"
+                          ? "#e6ffed"
+                          : "#ffecec",
+                      border: "1px solid #ddd",
+                    }}
+                    className="dark:text-black dark:bg-green-100 border-black"
+                  >
+                    {c.courseStatus || "Unknown"}
+                  </span>
+                </div>
+                <div style={{ marginTop: 4 }}>{c.title}</div>
+                <div style={{ marginTop: 6, fontSize: 12, color: "#666" }}>
+                  ID: {String(c.courseId).padStart(7, "0")}
+                </div>
+              </li>
+            ))}
+            {!loading && !err && items.length === 0 && q && (
+              <li style={{ color: "#666", marginTop: 12 }}>No results.</li>
+            )}
+          </ul>
+        </div>
+      </div>
+    </>
   );
 }

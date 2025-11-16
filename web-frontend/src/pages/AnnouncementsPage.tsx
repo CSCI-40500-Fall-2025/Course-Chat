@@ -118,9 +118,9 @@ const AnnouncementsPage = () => {
         {/* Modal to create announcement */}
         {modalOpen && (
           <div className="fixed inset-0 bg-opacity-50 flex items-center justify-center z-50">
-            <div className="bg-white rounded-lg shadow-xl w-full max-w-2xl mx-4 p-6">
+            <div className="bg-white rounded-lg shadow-xl w-full max-w-2xl mx-4 p-6 dark:bg-gray-800">
               <div className="flex justify-between items-center mb-4">
-                <h2 className="text-2xl font-bold text-gray-800">
+                <h2 className="text-2xl font-bold text-gray-800 dark:text-white">
                   Create Announcement
                 </h2>
                 <button
@@ -133,7 +133,7 @@ const AnnouncementsPage = () => {
               {/* Inputs (title, content) */}
               <div className="space-y-4">
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">
+                  <label className="block text-sm font-medium text-gray-700 mb-1 dark:text-white">
                     Title
                   </label>
                   <input
@@ -146,7 +146,7 @@ const AnnouncementsPage = () => {
                 </div>
 
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">
+                  <label className="block text-sm font-medium text-gray-700 mb-1 dark:text-white">
                     Content
                   </label>
                   <textarea
