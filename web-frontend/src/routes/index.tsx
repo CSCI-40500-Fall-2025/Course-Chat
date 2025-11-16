@@ -1,6 +1,5 @@
 import type { RouteObject } from "react-router-dom";
 import HomePage from "../pages/HomePage";
-import AboutPage from "../pages/AboutPage";
 import SignUpPage from "../pages/SignUpPage";
 import LogInPage from "../pages/LogInPage";
 import DashboardPage from "../pages/DashboardPage";
@@ -14,10 +13,6 @@ const routes: RouteObject[] = [
   {
     path: "/",
     element: <HomePage />,
-  },
-  {
-    path: "/about",
-    element: <AboutPage />,
   },
   {
     path: "/login",

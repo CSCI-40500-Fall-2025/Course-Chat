@@ -21,7 +21,7 @@ const DashboardPage = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 flex flex-col">
+    <div className="min-h-screen dark:bg-zinc-700 dark:text-white bg-gray-50 flex flex-col">
       <Navbar />
 
       <main className="flex-1 p-6 mt-10">
@@ -47,7 +47,7 @@ const DashboardPage = () => {
           )}
           <button
             onClick={addCourseButtonHandler}
-            className="flex items-center justify-center h-48 bg-gray-200 rounded-2xl hover:shadow-lg hover:bg-gray-300 hover:cursor-pointer transition-all text-5xl font-bold text-gray-700"
+            className="flex items-center dark:bg-gray-600 dark:hover:bg-gray-500 dark:text-white justify-center h-48 bg-gray-200 rounded-2xl hover:shadow-lg hover:bg-gray-300 hover:cursor-pointer transition-all text-5xl font-bold text-gray-700"
           >
             +
           </button>

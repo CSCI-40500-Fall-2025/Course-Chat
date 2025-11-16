@@ -1,4 +1,4 @@
-import React, { createContext, useState, useEffect } from "react";
+import React, { createContext, useState, useEffect, useContext } from "react";
 import { type UserProfile } from "../models/User";
 import { useNavigate } from "react-router-dom";
 import { loginAPI, registerAPI } from "../services/AuthService";
@@ -178,4 +178,10 @@ export const AuthProvider = ({ children }: Props) => {
   );
 };
 
-export const useAuth = () => React.useContext(AuthContext);
+export const useAuth = () => {
+  const context = useContext(AuthContext);
+  if (context === undefined) {
+    throw new Error("useAuth must be used within a AuthProvider");
+  }
+  return context;
+};

@@ -32,9 +32,9 @@ const CourseCard: React.FC<Course> = (props) => {
     props.courseStatus === "Available" ? "text-green-500" : "text-red-500";
   return (
     <>
-      <div className=" bg-white shadow-md rounded-2xl p-6 hover:shadow-lg transition flex flex-col justify-between">
+      <div className=" bg-white shadow-md rounded-2xl p-6 hover:shadow-lg transition flex flex-col justify-between dark:bg-gray-600 dark:text-white">
         <div className="flex flex-row justify-between">
-          <h3 className="text-2xl font-bold text-blue-600 mb-2">
+          <h3 className="text-2xl font-bold text-blue-600 dark:text-blue-500 mb-2">
             <button
               className=" hover:underline hover:cursor-pointer"
               onClick={handleJoinAnnouncements}
@@ -49,13 +49,18 @@ const CourseCard: React.FC<Course> = (props) => {
             onClick={() => delCourse(props)}
           >
             {isHovering ? (
-              <TbTrashFilled className="text-red-500" size={22} />
+              <TbTrashFilled
+                className="text-red-500 dark:text-red-400"
+                size={22}
+              />
             ) : (
-              <TbTrash className="text-red-500" size={22} />
+              <TbTrash className="text-red-500 dark:text-red-400" size={22} />
             )}
           </div>
         </div>
-        <h3 className="text-lg font-bold text-blue-600 mb-2">{props.title}</h3>
+        <h3 className="text-lg font-bold text-blue-600 dark:text-blue-500 mb-2">
+          {props.title}
+        </h3>
         <button
           onClick={handleJoinChat}
           className=" flex items-center justify-center gap-2 bg-blue-600 text-white font-semibold px-4 py-2 rounded-xl hover:bg-blue-700 hover:cursor-pointer active:scale-95 transition-all shadow-md"

@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import { getAPIBaseURL } from "../config/config";
 import { io, Socket } from "socket.io-client";
 import { useAuth } from "../contexts/AuthContext";
 import { type ChatResponse, type Message } from "../models/Message";
 import axios from "axios";
 import { handleError } from "../helpers/ErrorHandler";
+import Navbar from "../components/Navbar";
 
 const api = getAPIBaseURL();
 
@@ -66,17 +67,8 @@ const CourseChatPage = () => {
   };
 
   return (
-    <div className="flex flex-col h-screen bg-gray-50">
-      <div className="bg-blue-600 text-white p-4 text-center font-bold text-xl shadow relative flex items-center justify-center">
-        <Link
-          to="/dashboard"
-          className="absolute left-4 text-white hover:text-gray-200 transition"
-        >
-          ← Back
-        </Link>
-        {course.title} Chat
-      </div>
-
+    <div className="flex flex-col h-screen bg-gray-50 pt-16 dark:bg-zinc-700">
+      <Navbar />
       {/* Chat Messages */}
       <div className="flex-1 overflow-y-auto p-4 space-y-3">
         {messages.map((msg) => {
@@ -110,7 +102,7 @@ const CourseChatPage = () => {
                   className={`max-w-xs px-4 py-2 rounded-2xl text-sm shadow ${
                     isCurrentUser
                       ? "bg-blue-500 text-white self-end"
-                      : "bg-gray-200 text-gray-800"
+                      : "bg-gray-200 text-gray-800 dark:bg-gray-400"
                   }`}
                 >
                   {msg.content}
@@ -140,13 +132,13 @@ const CourseChatPage = () => {
 
       <form
         onSubmit={handleSendMessage}
-        className="p-4 flex items-center gap-2 border-t bg-white"
+        className="p-4 flex items-center gap-2 border-t bg-white dark:bg-zinc-700"
       >
         <input
           value={newMessage}
           onChange={(e) => setNewMessage(e.target.value)}
           placeholder="Type a message..."
-          className="flex-1 border border-gray-300 rounded-xl px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+          className="flex-1 border border-gray-300 rounded-xl px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 dark:text-white"
         />
         <button
           type="submit"

@@ -66,7 +66,6 @@ const AnnouncementCard = ({
         },
         { headers: { Authorization: `Bearer ${token}` } }
       );
-      console.log(res.data.announcement);
       onUpdate(res.data.announcement);
       editModalClose();
       toast.success("Announcement edited successfully.");
@@ -84,20 +83,23 @@ const AnnouncementCard = ({
         headers: { Authorization: `Bearer ${token}` },
       });
       onDelete(_id.toString());
+      toast.success("Announcement deleted successfully.");
     } catch (error) {
       toast.warn("Error deleting announcement. Please try again.");
       handleError(error);
     }
   };
   return (
-    <div className="bg-white shadow-md rounded-2xl p-5 border border-gray-100 hover:shadow-lg transition-all duration-200x mt-1">
-      <div className="flex justify-between items-start mb-3">
-        <h2 className="text-lg font-semibold text-gray-900">{title}</h2>
-        <div className="flex gap-2">
+    <div className="bg-white shadow-md rounded-2xl p-5 border border-gray-100 hover:shadow-lg transition-all duration-200x mt-1 dark:bg-gray-800">
+      <div className="flex justify-between items-start mb-3 ">
+        <h2 className="text-lg font-semibold text-gray-900 dark:text-white">
+          {title}
+        </h2>
+        <div className="flex gap-2 ">
           {user?._id === creator._id && (
             <>
               <button
-                className="rounded-lg hover:bg-blue-50 hover:cursor-pointer text-blue-600 transition-colors"
+                className="rounded-lg hover:bg-blue-50 dark:hover:bg-gray-700 hover:cursor-pointer text-blue-600 transition-colors"
                 title="Edit"
                 onClick={editModalOpen}
               >
@@ -119,19 +121,21 @@ const AnnouncementCard = ({
           )}
         </div>
       </div>
-      <p className="text-gray-700 mb-4">{content}</p>
+      <p className="text-gray-700 mb-4 dark:text-white">{content}</p>
       <div className="flex justify-between items-center text-sm text-gray-500 border-t pt-3">
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-2 dark:text-white">
           <span>{formattedDate}</span>
         </div>
-        <span className="italic">By {creator.username}</span>
+        <span className="italic dark:text-white">By {creator.username}</span>
       </div>
       {/* Editing Announcement Modal */}
       {modalOpen && (
-        <div className="fixed inset-0 bg-opacity-50 flex items-center justify-center z-50">
-          <div className="bg-white rounded-lg shadow-xl w-full max-w-2xl mx-4 p-6">
-            <div className="flex justify-between items-center mb-4">
-              <h2 className="text-2xl font-bold text-gray-800">Edit:</h2>
+        <div className="fixed inset-0 bg-opacity-50 flex items-center justify-center z-50 ">
+          <div className="bg-white rounded-lg shadow-xl w-full max-w-2xl mx-4 p-6 dark:bg-gray-800">
+            <div className="flex justify-between items-center mb-4 ">
+              <h2 className="text-2xl font-bold text-gray-800 dark:text-white">
+                Edit:
+              </h2>
               <button
                 onClick={editModalClose}
                 className="text-gray-500 hover:text-gray-700 text-2xl hover:cursor-pointer"
@@ -143,7 +147,7 @@ const AnnouncementCard = ({
             <div className="space-y-4">
               {/* Title Input */}
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">
+                <label className="block text-sm font-medium text-gray-700 mb-1 dark:text-white">
                   Title
                 </label>
                 <input
@@ -157,7 +161,7 @@ const AnnouncementCard = ({
 
               {/* Content Textarea */}
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">
+                <label className="block text-sm font-medium text-gray-700 mb-1 dark:text-white">
                   Content
                 </label>
                 <textarea
@@ -184,7 +188,7 @@ const AnnouncementCard = ({
                 disabled={isSubmitting}
                 className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 hover:cursor-pointer transition-colors disabled:bg-blue-400 disabled:cursor-not-allowed"
               >
-                {isSubmitting ? "Creating..." : "Create"}
+                {isSubmitting ? "Editing..." : "Edit"}
               </button>
             </div>
           </div>
