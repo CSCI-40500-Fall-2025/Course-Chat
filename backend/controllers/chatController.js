@@ -15,7 +15,7 @@ export const getMessages = async (req, res) => {
     const messages = await Message.find({ chat: chat._id })
       .populate("sender", "username profileImageURL")
       .sort({ createdAt: 1 });
-
+    logger.info("Messages fetched successfully.");
     return res.status(200).json({
       chatId: chat._id,
       course: chat.course,

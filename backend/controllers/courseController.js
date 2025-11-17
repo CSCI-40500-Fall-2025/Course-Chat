@@ -31,6 +31,7 @@ export const getCourses = async (req, res) => {
     const { email } = req.user;
     // get populated courses field instead of just references
     const user = await User.findOne({ email }).populate("courses");
+    logger.info("Courses fetched successfully.");
     return res
       .status(200)
       .json({ courses: user.courses, message: "Got courses successfully." });
@@ -66,6 +67,7 @@ export const addCourse = async (req, res) => {
       courseExists.users.push(user._id);
       await courseExists.save();
     }
+    logger.info("Course added successfully.");
 
     //stores reference use get to get full
     return res
@@ -104,6 +106,7 @@ export const deleteCourse = async (req, res) => {
       (u) => u.toString() !== user._id.toString()
     );
     await courseExists.save();
+    logger.info("Course deleted successfully.");
     return res
       .status(200)
       .json({ message: "Course deleted successfully.", courses: user.courses });

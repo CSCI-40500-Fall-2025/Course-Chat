@@ -1,3 +1,4 @@
+import "dotenv/config";
 import express from "express";
 import connectDB from "./config/db.js";
 import userroutes from "./routes/user-auth.js";
@@ -5,7 +6,6 @@ import chatRoutes from "./routes/chat.js";
 import announcementRoutes from "./routes/announcements.js";
 import cors from "cors";
 import courseRoutes from "./routes/courses.js";
-import "dotenv/config";
 import { connectCloudinary } from "./config/cloudinary.js";
 import { initSocket } from "./chat/socket.js";
 import http from "http";
@@ -40,6 +40,11 @@ app.use("/api", announcementRoutes);
 
 app.get("/", (req, res) => {
   res.status(200).send("Hello registration");
+});
+
+app.get("/log-test", (req, res) => {
+  logger.warn("Testing CloudWatch logging from Express!");
+  res.send("Logged to Cloudwatch");
 });
 
 initSocket(server);

@@ -36,7 +36,7 @@ export const addAnnouncement = async (req, res) => {
       "creator",
       "username email"
     );
-
+    logger.info("Announcement added Successful.");
     return res.status(201).json({
       message: "Announcement created successfully.",
       announcement: populatedAnnouncement,
@@ -79,7 +79,7 @@ export const updateAnnouncement = async (req, res) => {
       "creator",
       "username email"
     );
-
+    logger.info("Announcement Updated Successful.");
     return res.status(200).json({
       message: "Announcement updated successfully",
       announcement: populatedAnnouncement,
@@ -115,8 +115,8 @@ export const deleteAnnouncement = async (req, res) => {
     );
 
     await announcement.deleteOne();
-
-    res.status(200).json({ message: "Announcement deleted successfuly." });
+    logger.info("Announcement deleted Successful.");
+    res.status(200).json({ message: "Announcement deleted successfully." });
   } catch (error) {
     logger.error(`Error deleting announcement: ${error.message}`);
     return res
@@ -138,7 +138,7 @@ export const getAnnouncements = async (req, res) => {
     });
     if (!course)
       return res.status(404).json({ message: " Course not found. " });
-
+    logger.info("Announcements fetched Successfully.");
     return res.status(200).json({ announcements: course.announcements });
   } catch (error) {
     logger.error(`Error getting Announcements: ${error.message}`);

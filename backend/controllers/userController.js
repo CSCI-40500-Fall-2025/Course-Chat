@@ -56,6 +56,7 @@ export const signup = async (req, res) => {
       process.env.JWT_SECRET,
       { expiresIn: "1h" }
     );
+    logger.info("Sign up Successful.");
 
     return res.status(201).json({
       message: "User Created Successfully",
@@ -101,6 +102,7 @@ export const login = async (req, res) => {
       { expiresIn: "1h" }
     );
 
+    logger.info("Login Successful.");
     return res.status(200).json({
       message: "User Logged in Successfully",
       user: {
@@ -136,6 +138,7 @@ export const upload = async (req, res) => {
       { $set: { profileImageURL: uploadResult.secure_url } },
       { new: true }
     );
+    logger.info("Upload Successful.");
 
     return res.status(200).json({
       message: "Image uploaded successfully",
