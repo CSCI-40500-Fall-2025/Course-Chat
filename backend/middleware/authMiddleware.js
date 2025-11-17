@@ -1,6 +1,7 @@
 import jwt from "jsonwebtoken";
 import dotenv from "dotenv";
 import User from "../models/user.js";
+import logger from "../logger.js";
 
 dotenv.config();
 
@@ -18,8 +19,8 @@ export const authMiddleware = async (req, res, next) => {
     }
     req.user = user;
     next();
-  } catch {
-    console.log("Error in middleware");
+  } catch (error) {
+    logger.error("Error in middleware", error);
     return res.status(401).json({ message: "Invalid or expired token" });
   }
 };

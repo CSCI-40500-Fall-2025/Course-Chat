@@ -1,3 +1,4 @@
+import logger from "../logger.js";
 import Announcement from "../models/announcement.js";
 import Course from "../models/course.js";
 
@@ -14,10 +15,12 @@ export const addAnnouncement = async (req, res) => {
     }
 
     const course = await Course.findById(courseId);
-    if (!course)
+    if (!course) {
+      logger.warn("Course not found when adding announcement.");
       return res
         .status(404)
         .json({ message: "Course not found to add announcement to." });
+    }
 
     const announcement = new Announcement({
       title,
@@ -39,7 +42,7 @@ export const addAnnouncement = async (req, res) => {
       announcement: populatedAnnouncement,
     });
   } catch (error) {
-    console.log("Error adding announcement: ", error.message);
+    logger.error(`Error adding announcement: ${error.message}`);
     return res
       .status(500)
       .json({ message: "Server error: Could not add announcement." });
@@ -54,8 +57,10 @@ export const updateAnnouncement = async (req, res) => {
     const { announcementId } = req.params;
     const { title, content } = req.body;
     const announcement = await Announcement.findById(announcementId);
-    if (!announcement)
+    if (!announcement) {
+      logger.warn("Course not found when editing announcement.");
       return res.status(404).json({ message: "Announcement not found " });
+    }
 
     if (announcement.creator.toString() !== req.user._id.toString()) {
       return res.status(403).json({ message: "Unauthorized to edit." });
@@ -80,7 +85,7 @@ export const updateAnnouncement = async (req, res) => {
       announcement: populatedAnnouncement,
     });
   } catch (error) {
-    console.log("Error updating announcement: ", error.message);
+    logger.error(`Error updating announcement: ${error.message}`);
     return res
       .status(500)
       .json({ message: "Server error: Could not update announcement." });
@@ -95,8 +100,10 @@ export const deleteAnnouncement = async (req, res) => {
     const { announcementId } = req.params;
 
     const announcement = await Announcement.findById(announcementId);
-    if (!announcement)
+    if (!announcement) {
+      logger.warn("Course not found when deleting announcement.");
       return res.status(404).json({ message: "Announcement not found " });
+    }
 
     if (announcement.creator.toString() !== req.user._id.toString()) {
       return res.status(403).json({ message: "Unauthorized to edit." });
@@ -111,7 +118,7 @@ export const deleteAnnouncement = async (req, res) => {
 
     res.status(200).json({ message: "Announcement deleted successfuly." });
   } catch (error) {
-    console.log("Error deleting announcement: ", error.message);
+    logger.error(`Error deleting announcement: ${error.message}`);
     return res
       .status(500)
       .json({ message: "Server error: Could not delete announcement." });
@@ -134,7 +141,7 @@ export const getAnnouncements = async (req, res) => {
 
     return res.status(200).json({ announcements: course.announcements });
   } catch (error) {
-    console.log("Error getting Announcements: ", error.message);
+    logger.error(`Error getting Announcements: ${error.message}`);
     return res
       .status(500)
       .json({ message: "Server error: Could not get announcements." });

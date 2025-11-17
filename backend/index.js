@@ -9,11 +9,13 @@ import "dotenv/config";
 import { connectCloudinary } from "./config/cloudinary.js";
 import { initSocket } from "./chat/socket.js";
 import http from "http";
+import logger from "./logger.js";
 
 const PORT = process.env.PORT || 5001;
 const app = express();
 const server = http.createServer(app);
 
+logger.debug("Logger is working!");
 connectDB();
 connectCloudinary();
 
@@ -43,7 +45,7 @@ app.get("/", (req, res) => {
 initSocket(server);
 
 server.listen(PORT, () => {
-  console.log(`Server is running on port ${PORT}`);
+  logger.debug(`Server is running on port ${PORT}`);
 });
 
 export default app;

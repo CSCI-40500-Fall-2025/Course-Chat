@@ -1,3 +1,4 @@
+import logger from "../logger.js";
 import Course from "../models/course.js";
 import User from "../models/user.js";
 
@@ -17,7 +18,7 @@ export const getUsers = async (req, res) => {
       message: "Users grabbed successfully.",
     });
   } catch (error) {
-    console.log("Error in getting users from course: ", error.message);
+    logger.error(`Error in getting users from course: ${error.message}`);
     return res
       .status(500)
       .json({ message: "Server error: Could not get users." });
@@ -34,7 +35,7 @@ export const getCourses = async (req, res) => {
       .status(200)
       .json({ courses: user.courses, message: "Got courses successfully." });
   } catch (error) {
-    console.log("Error in getting user courses: ", error.message);
+    logger.error(`Error in getting user courses: ${error.message}`);
     return res
       .status(500)
       .json({ message: "Server error: Could not get user courses." });
@@ -71,7 +72,7 @@ export const addCourse = async (req, res) => {
       .status(200)
       .json({ message: "Course added successfully.", courses: user.courses });
   } catch (error) {
-    console.log("Error adding course: ", error.message);
+    logger.error(`Error adding course: ${error.message}`);
     return res
       .status(500)
       .json({ message: "Server error: Could not add course." });
@@ -107,7 +108,7 @@ export const deleteCourse = async (req, res) => {
       .status(200)
       .json({ message: "Course deleted successfully.", courses: user.courses });
   } catch (error) {
-    console.log("Error adding course: ", error.message);
+    logger.error(`Error deleting course: ${error.message}`);
     return res
       .status(500)
       .json({ message: "Server error: Could not delete course." });

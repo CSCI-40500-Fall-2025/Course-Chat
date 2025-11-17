@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { useAuth } from "../contexts/AuthContext";
+import { toast } from "react-toastify";
 const SignUpPage = () => {
   const { registerUser } = useAuth();
   const [username, setUsername] = useState("");
@@ -13,7 +14,8 @@ const SignUpPage = () => {
     e.preventDefault();
     setLoading(true);
     if (password !== confirmPassword) {
-      alert("Passwords do not match!");
+      toast.warn("Passwords do not match.");
+      setLoading(false);
       return;
     }
     await registerUser(username, email, password);

@@ -3,12 +3,14 @@ import jwt from "jsonwebtoken";
 import User from "../models/user.js";
 import { isPasswordComplex, isUsernameComplex } from "../utils/validators.js";
 import { v2 as cloudinary } from "cloudinary";
+import logger from "../logger.js";
 
 export const signup = async (req, res) => {
   try {
     const { username, email, password } = req.body;
 
     if (!isUsernameComplex(username)) {
+      logger.info("Username complexity not met.");
       return res.status(400).json({
         message:
           "Username must start with a letter, must be between 3 and 16 characters, and can contain letters, numbers, and underscores.",
@@ -16,6 +18,7 @@ export const signup = async (req, res) => {
     }
 
     if (!isPasswordComplex(password)) {
+      logger.info("Password complexity not met.");
       return res.status(400).json({
         message:
           "Password must be a minimum of eight characters, with one uppercase, one lowercase, one number, and one special character",
@@ -24,12 +27,14 @@ export const signup = async (req, res) => {
 
     //check for all fields
     if (!username || !email || !password) {
+      logger.info("All fields required for signup.");
       return res.status(400).json({ message: "All fields are required" });
     }
 
     //check if user exists
     const existingUser = await User.findOne({ email });
     if (existingUser) {
+      logger.warn("User already exists (signup)");
       return res.status(400).json({ message: "Email already in use" });
     }
     //hash password
@@ -64,7 +69,7 @@ export const signup = async (req, res) => {
       token,
     });
   } catch (error) {
-    console.log("Error with signup:", error.message);
+    logger.error(`Error with signup: ${error.message}`);
     return res.status(500).json({ message: "Server error" });
   }
 };
@@ -75,10 +80,12 @@ export const login = async (req, res) => {
 
     //check for both fields and if email exists in db
     if (!email || !password) {
+      logger.info("All fields required for login.");
       return res.status(400).json({ message: "All fields are required" });
     }
     const user = await User.findOne({ email });
     if (!user) {
+      logger.warn("User does not exist (login)");
       return res.status(401).json({ message: "Invalid username or password" });
     }
 
@@ -105,7 +112,7 @@ export const login = async (req, res) => {
       token,
     });
   } catch (error) {
-    console.log("Error with login:", error.message);
+    logger.error(`Error with login: ${error.message}`);
     return res.status(500).json({ message: "Server error" });
   }
 };
@@ -139,7 +146,7 @@ export const upload = async (req, res) => {
       },
     });
   } catch (error) {
-    console.log(`Uploading Error: ${error.message}`);
+    logger.error(`Image uploading error: ${error.message}`);
     return res.status(500).json({ message: "Server error during upload" });
   }
 };
@@ -154,7 +161,7 @@ export const getUserData = async (req, res) => {
       user: req.user,
     });
   } catch (error) {
-    console.log("Error with getUserData:", error.message);
+    logger.error(`Error with middleware: ${error.message}`);
     return res.status(500).json({ message: "Server error" });
   }
 };

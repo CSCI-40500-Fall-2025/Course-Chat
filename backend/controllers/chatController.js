@@ -1,3 +1,4 @@
+import logger from "../logger.js";
 import Chat from "../models/chat.js";
 import Message from "../models/message.js";
 
@@ -21,7 +22,7 @@ export const getMessages = async (req, res) => {
       messages,
     });
   } catch (error) {
-    console.log("Error getting messages: ", error);
+    logger.error(`Error getting messages: ${error.message}`);
     return res
       .status(500)
       .json({ message: "Server Error: Could not get messages " });

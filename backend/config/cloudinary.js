@@ -1,5 +1,6 @@
 import { v2 as cloudinary } from "cloudinary";
 import dotenv from "dotenv";
+import logger from "../logger.js";
 
 dotenv.config();
 
@@ -10,9 +11,9 @@ export const connectCloudinary = async () => {
       api_key: process.env.CLOUDINARY_API_KEY,
       api_secret: process.env.CLOUDINARY_API_SECRET,
     });
-    console.log("Cloudinary connected.");
+    logger.debug("Cloudinary connected.");
   } catch (error) {
-    console.log(`Error ${error.message}`);
+    logger.error(`Error: ${error.message}`);
     process.exit(1);
   }
 };

@@ -1,6 +1,7 @@
 import { Server } from "socket.io";
 import Chat from "../models/chat.js";
 import Message from "../models/message.js";
+import logger from "../logger.js";
 
 export const initSocket = (server) => {
   const io = new Server(server, {
@@ -15,17 +16,20 @@ export const initSocket = (server) => {
     },
   });
   io.on("connection", (socket) => {
-    console.log("User Connected: ", socket.id);
+    logger.debug(`User Connected: ${socket.id}`);
 
     socket.on("joinCourseChat", async (courseId) => {
       socket.join(courseId);
-      console.log(`User ${socket.id} joined chat room: ${courseId}`);
+      logger.info(`User ${socket.id} joined chat room: ${courseId}`);
     });
 
     socket.on("sendMessage", async ({ courseId, userId, content }) => {
       try {
         let chat = await Chat.findOne({ course: courseId });
         if (!chat) {
+          logger.warn(
+            "Course chat was not created so creating a chat for specified course."
+          );
           chat = await Chat.create({ course: courseId });
         }
 
@@ -34,12 +38,14 @@ export const initSocket = (server) => {
           sender: userId,
           content,
         });
-
         chat.messages.push(message._id);
         await chat.save();
         const populatedMessage = await message.populate(
           "sender",
           "username profileImageURL"
+        );
+        logger.info(
+          `Message sent successfully: User: ${populatedMessage.sender.username}, Content: ${populatedMessage.content}`
         );
         io.to(courseId).emit("recieveMessage", populatedMessage);
       } catch (error) {
@@ -48,7 +54,7 @@ export const initSocket = (server) => {
     });
 
     socket.on("disconnect", () => {
-      console.log("User disconnected ", socket.id);
+      logger.debug(`User disconnected: ${socket.id}`);
     });
   });
 };
