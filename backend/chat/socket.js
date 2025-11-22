@@ -52,6 +52,33 @@ export const initSocket = (server) => {
         console.error("Error sending message ", error);
       }
     });
+    socket.on("deleteMessage", async ({ courseId, messageId }) => {
+      try {
+        let chat = await Chat.findOne({ course: courseId });
+        if (!chat) {
+          logger.warn(
+            "Course chat was not created so creating a chat for specified course."
+          );
+          return;
+        }
+        chat.messages = chat.messages.filter(
+          (msg) => msg.toString() !== messageId
+        );
+        await chat.save();
+
+        await Message.findByIdAndDelete(messageId);
+
+        const messages = await Message.find({ chat: chat._id })
+          .populate("sender", "username profileImageURL")
+          .sort({ createdAt: 1 });
+
+        io.to(courseId).emit("messageDeleted", messages);
+
+        logger.info("Message deleted successfully");
+      } catch (error) {
+        logger.error("Error deleting message ", error);
+      }
+    });
 
     socket.on("disconnect", () => {
       logger.debug(`User disconnected: ${socket.id}`);

@@ -54,12 +54,18 @@ const CourseChatPage = () => {
       socket.on("recieveMessage", (msg) => {
         setMessages((prev) => [...prev, msg]);
       });
+      socket.on("messageDeleted", (msgs) => {
+        setMessages(msgs);
+      });
     }
   }, [socket]);
 
   const handleSendMessage = (e: React.FormEvent) => {
     e.preventDefault();
-    if (!newMessage.trim()) return;
+    if (!newMessage.trim()) {
+      toast.warn("Type something to send a message.");
+      return;
+    }
     socket?.emit("sendMessage", {
       courseId: course._id,
       userId: user?._id,
@@ -70,9 +76,10 @@ const CourseChatPage = () => {
 
   const handleDeleteMessage = async (messageId: string) => {
     try {
-      await axios.delete(`${api}/api/chats/${course._id}/${messageId}`);
-      setMessages((prev) => prev.filter((m) => m._id !== messageId));
-      toast.success("Successfully deleted Message.");
+      socket?.emit("deleteMessage", {
+        courseId: course._id,
+        messageId: messageId,
+      });
     } catch (error) {
       toast.warn("Error deleting Message.");
       handleError(error);
@@ -163,7 +170,7 @@ const CourseChatPage = () => {
         />
         <button
           type="submit"
-          className="bg-blue-600 hover:bg-blue-700 text-white font-semibold px-4 py-2 rounded-xl transition"
+          className="bg-blue-600 hover:bg-blue-700 hover:cursor-pointer text-white font-semibold px-4 py-2 rounded-xl transition"
         >
           Send
         </button>
