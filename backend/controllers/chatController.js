@@ -28,3 +28,29 @@ export const getMessages = async (req, res) => {
       .json({ message: "Server Error: Could not get messages " });
   }
 };
+
+//route: /chats/:courseId/:messageId
+export const deleteMessage = async (req, res) => {
+  try {
+    const { courseId, messageId } = req.params;
+    let chat = await Chat.findOne({ course: courseId });
+    if (!chat) {
+      return res
+        .status(400)
+        .json({ message: "No Chatroom to delete message from" });
+    }
+
+    chat.messages = chat.messages.filter((msg) => msg.toString() !== messageId);
+    await chat.save();
+
+    await Message.findByIdAndDelete(messageId);
+
+    logger.info("Message deleted successfully");
+    return res.status(200).json({ message: "Message deleted successfully." });
+  } catch (error) {
+    logger.error(`Error deleting message: ${error.message}`);
+    return res
+      .status(500)
+      .json({ message: "Server Error: Could not delete message" });
+  }
+};

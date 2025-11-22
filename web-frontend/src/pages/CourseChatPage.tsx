@@ -7,6 +7,8 @@ import { type ChatResponse, type Message } from "../models/Message";
 import axios from "axios";
 import { handleError } from "../helpers/ErrorHandler";
 import Navbar from "../components/Navbar";
+import { TbTrash } from "react-icons/tb";
+import { toast } from "react-toastify";
 
 const api = getAPIBaseURL();
 
@@ -66,6 +68,17 @@ const CourseChatPage = () => {
     setNewMessage("");
   };
 
+  const handleDeleteMessage = async (messageId: string) => {
+    try {
+      await axios.delete(`${api}/api/chats/${course._id}/${messageId}`);
+      setMessages((prev) => prev.filter((m) => m._id !== messageId));
+      toast.success("Successfully deleted Message.");
+    } catch (error) {
+      toast.warn("Error deleting Message.");
+      handleError(error);
+    }
+  };
+
   return (
     <div className="flex flex-col h-screen bg-gray-50 pt-16 dark:bg-zinc-700">
       <Navbar />
@@ -91,6 +104,14 @@ const CourseChatPage = () => {
               )}
               {/* MESSAGE BUBBLEE*/}
               <div className="">
+                {isCurrentUser && (
+                  <div
+                    className=" hover:cursor-pointer flex justify-end"
+                    onClick={() => handleDeleteMessage(msg._id)}
+                  >
+                    <TbTrash className="text-red-500 hover:scale-110 transition" />
+                  </div>
+                )}
                 {/* USERNAME FOR BUBBLE */}
                 {!isCurrentUser && (
                   <span className="text-xs text-gray-500 mb-1 ml-1">

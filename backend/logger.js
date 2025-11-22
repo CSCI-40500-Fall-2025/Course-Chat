@@ -34,6 +34,7 @@ const logger = winston.createLogger({
   transports: [new winston.transports.Console()],
 });
 
+// cw for my account
 const cw = new WinstonCloudwatch({
   logGroupName: "Course-Chat",
   logStreamName: `Course-Chat-Winston-Logging`,
@@ -41,10 +42,6 @@ const cw = new WinstonCloudwatch({
   awsRegion: process.env.AWS_REGION,
   jsonMessage: false,
   uploadRate: 2000,
-});
-
-process.on("beforeExit", () => {
-  logger.end && logger.end();
 });
 
 logger.add(cw);
