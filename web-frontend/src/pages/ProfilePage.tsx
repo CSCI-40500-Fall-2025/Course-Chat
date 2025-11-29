@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useAuth } from "../contexts/AuthContext";
 import { useState, type ChangeEvent } from "react";
 import axios from "axios";
@@ -12,6 +12,7 @@ const ProfilePage = () => {
   const { user, token, updateProfileImage } = useAuth();
   const [loading, setLoading] = useState(false);
   const [selectedImage, setSelectedImage] = useState<File | null>(null);
+  const navigate = useNavigate();
   //const [preview, setPreview] = useState<string | null>(null);
 
   const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -65,12 +66,12 @@ const ProfilePage = () => {
     <>
       <Navbar />
       <div className="p-10 mt-10 dark:bg-zinc-700 dark:text-white min-h-screen">
-        <Link
-          to="/dashboard"
-          className="text-blue-500 mb-4 inline-block dark:text-blue-400"
+        <button
+          onClick={() => navigate(-1)}
+          className="text-blue-500 mb-4 inline-block dark:text-blue-400 hover:cursor-pointer"
         >
           ← Back
-        </Link>
+        </button>
         <div className="flex flex-col items-center gap-6">
           <img
             src={user?.profileImageURL}

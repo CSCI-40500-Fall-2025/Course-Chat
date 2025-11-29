@@ -9,6 +9,8 @@ import { handleError } from "../helpers/ErrorHandler";
 import Navbar from "../components/Navbar";
 import { TbTrash } from "react-icons/tb";
 import { toast } from "react-toastify";
+import { FaWandMagicSparkles } from "react-icons/fa6";
+import { IoIosClose, IoMdClose } from "react-icons/io";
 
 const api = getAPIBaseURL();
 
@@ -20,6 +22,10 @@ const CourseChatPage = () => {
   const [newMessage, setNewMessage] = useState("");
   const { user } = useAuth();
   const messageEndRef = React.useRef<HTMLDivElement | null>(null);
+  const [showML, setShowML] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isSummarizing, setIsSummarizing] = useState(false);
+  const [summary, setSummary] = useState("");
 
   useEffect(() => {
     messageEndRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -36,6 +42,19 @@ const CourseChatPage = () => {
     }
   };
 
+  const fetchSummary = async () => {
+    try {
+      setIsSummarizing(true);
+      const res = await axios.get(`${api}/api/chats/${course._id}/summarizer`);
+      setSummary(res.data.message);
+    } catch (error) {
+      toast.warn("Error in generating summary.");
+      handleError(error);
+    } finally {
+      setIsSummarizing(false);
+    }
+  };
+
   useEffect(() => {
     fetchMessages();
 
@@ -43,7 +62,16 @@ const CourseChatPage = () => {
       withCredentials: true,
     });
     setSocket(newSocket);
+    let count = 0;
+    const interval = setInterval(() => {
+      count++;
+      if (count === 15) {
+        setShowML(true);
+        clearInterval(interval);
+      }
+    }, 1000);
     return () => {
+      clearInterval(interval);
       newSocket.disconnect();
     };
   }, []);
@@ -86,11 +114,33 @@ const CourseChatPage = () => {
     }
   };
 
+  const handleMLClicked = () => {
+    setShowML(false);
+    setIsModalOpen(true);
+    fetchSummary();
+  };
+
   return (
     <div className="flex flex-col h-screen bg-gray-50 pt-16 dark:bg-zinc-700">
       <Navbar />
       {/* Chat Messages */}
       <div className="flex-1 overflow-y-auto p-4 space-y-3">
+        {showML && (
+          <div className="flex p-1.5 rounded-xl items-center left-1/2 top-1/8 bg-gray-300 dark:bg-neutral-900 -translate-x-1/2 gap-2 z-1 dark:text-white transition-all duration-200 fixed hover:opacity-80 animated-open">
+            <FaWandMagicSparkles className="text-blue-500" />
+            <p
+              className="font-medium hover:cursor-pointer dark:hover:text-gray-400 hover:text-gray-500 transition duration-200"
+              onClick={handleMLClicked}
+            >
+              Use Our Summarizer!
+            </p>
+            <IoIosClose
+              size={15}
+              onClick={() => setShowML(false)}
+              className="hover:cursor-pointer hover:text-red-500 transition"
+            />
+          </div>
+        )}
         {messages.map((msg) => {
           const isCurrentUser = msg.sender._id === user?._id;
           return (
@@ -175,6 +225,27 @@ const CourseChatPage = () => {
           Send
         </button>
       </form>
+      {/* Modal to show ML summary */}
+      {isModalOpen && (
+        <div className="fixed inset-0 bg-opacity-50 flex items-center justify-center z-50">
+          <div className="bg-white rounded-lg shadow-xl w-full max-w-2xl mx-4 p-6 dark:bg-gray-800 text-black dark:text-white">
+            <div className="flex justify-between items-center mb-4">
+              <h1 className="text-xl">Summary:</h1>
+              <button
+                onClick={() => setIsModalOpen(false)}
+                className="text-gray-500 hover:text-gray-700 text-2xl hover:cursor-pointer"
+              >
+                <IoMdClose />
+              </button>
+            </div>{" "}
+            {isSummarizing ? (
+              <p> AI is currently summarizing... </p>
+            ) : (
+              <p className="text-sm text-center mt-1"> {summary} </p>
+            )}
+          </div>
+        </div>
+      )}
     </div>
   );
 };

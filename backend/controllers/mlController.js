@@ -32,7 +32,6 @@ export const summarizeMessages = async (req, res) => {
       model: "gemini-2.5-flash",
       contents: query,
     });
-    console.log(response.text);
     return res.status(200).json({ message: response.text });
   } catch (error) {
     logger.error(`Error in summarizing message (ML): ${error.message}`);
