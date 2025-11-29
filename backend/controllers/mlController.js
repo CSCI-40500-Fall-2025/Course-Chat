@@ -3,6 +3,7 @@ import { GoogleGenAI } from "@google/genai";
 import dotenv from "dotenv";
 import Chat from "../models/chat.js";
 import Message from "../models/message.js";
+import Course from "../models/course.js";
 
 dotenv.config();
 
@@ -23,9 +24,13 @@ export const summarizeMessages = async (req, res) => {
     const messages = await Message.find({ chat: chat._id })
       .populate("sender", "username profileImageURL")
       .sort({ createdAt: 1 });
-
+    const course = await Course.findById(courseId);
+    const courseCode = course.code;
+    const courseTitle = course.title;
+    const courseStatus = course.courseStatus;
     const query = `Using the following messages data output a summary. \n \ 
-    The data will start on the next line and will be a json object. Ignore all data besides sender.username and the content for each json object. Summarize the content from each object and specify who sent what content when summarizing. DO NOT just list out who said what but instead just give a paragraph summary, keeping it short. Make the summary flow.  Here is the data: \n \
+    The data will start on the next line and will be a json object. Ignore all data besides sender.username and the content for each json object. You are summarizing for the course ${courseCode}, titled ${courseTitle}, with a status of ${courseStatus}. In the summary mention the course information.
+     You are summarizing content from a course group chat. Summarize the content from each object and specify who sent what content when summarizing. DO NOT just list out who said what but instead just give a paragraph summary, keeping it short. Additionally, include key details on the course, assignments, projects, or any coursework for the course in the summary. Make the summary flow.  Here is the data: \n \
         ${messages}
     `;
     const response = await ai.models.generateContent({
