@@ -23,6 +23,7 @@ jobs:
         run: curl -X POST "$RENDER_FRONTEND_DEPLOY_HOOK_URL"
         env:
           RENDER_FRONTEND_DEPLOY_HOOK_URL: ${{ secrets.RENDER_FRONTEND_DEPLOY_HOOK_URL }}
+
   create-deployment:
     needs: [backend-deploy, frontend-deploy]
     runs-on: ubuntu-latest

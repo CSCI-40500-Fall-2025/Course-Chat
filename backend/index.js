@@ -4,6 +4,7 @@ import connectDB from "./config/db.js";
 import userroutes from "./routes/user-auth.js";
 import chatRoutes from "./routes/chat.js";
 import announcementRoutes from "./routes/announcements.js";
+import mlRoutes from "./routes/ml.js";
 import cors from "cors";
 import courseRoutes from "./routes/courses.js";
 import { connectCloudinary } from "./config/cloudinary.js";
@@ -37,6 +38,7 @@ app.use("/api", userroutes);
 app.use("/api", courseRoutes);
 app.use("/api", chatRoutes);
 app.use("/api", announcementRoutes);
+app.use("/api", mlRoutes);
 
 app.get("/", (req, res) => {
   res.status(200).send("Hello registration");

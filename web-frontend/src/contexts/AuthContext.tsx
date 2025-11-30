@@ -140,7 +140,8 @@ export const AuthProvider = ({ children }: Props) => {
       );
   };
   const isLoggedIn = () => {
-    return !!user;
+    if (!token) return false;
+    return !isTokenExpired(token);
   };
   const logout = () => {
     toast.success("Logout successfull");
