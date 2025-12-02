@@ -1,6 +1,7 @@
 import { MemoryRouter } from "react-router-dom";
 import App from "../src/App";
 import { render, screen, fireEvent } from "@testing-library/react";
+import { ThemeProvider } from "../src/contexts/ThemeContext";
 // Unit test class
 // Will have 5 unit tests here and 5 in the backend folder
 
@@ -10,7 +11,9 @@ describe("Frontend component tests", () => {
   test("renders welcome text from startup", async () => {
     render(
       <MemoryRouter>
-        <App />
+        <ThemeProvider>
+          <App />
+        </ThemeProvider>
       </MemoryRouter>
     );
     expect(screen.getByText(/Welcome to/)).toBeInTheDocument();
@@ -20,7 +23,9 @@ describe("Frontend component tests", () => {
   test("Login and Sign up functionality", () => {
     render(
       <MemoryRouter>
-        <App />
+        <ThemeProvider>
+          <App />
+        </ThemeProvider>
       </MemoryRouter>
     );
     fireEvent.click(screen.getByText(/Log In/));
@@ -34,7 +39,9 @@ describe("Frontend component tests", () => {
   test("Invalid Sign up", () => {
     render(
       <MemoryRouter>
-        <App />
+        <ThemeProvider>
+          <App />
+        </ThemeProvider>
       </MemoryRouter>
     );
     fireEvent.click(screen.getByText(/Sign Up/));
@@ -56,7 +63,9 @@ describe("Frontend component tests", () => {
   test("Invalid Log In", () => {
     render(
       <MemoryRouter>
-        <App />
+        <ThemeProvider>
+          <App />
+        </ThemeProvider>
       </MemoryRouter>
     );
     fireEvent.click(screen.getByText(/Log In/));
@@ -76,7 +85,9 @@ describe("Frontend component tests", () => {
   test("Sign Up Password Validation", async () => {
     render(
       <MemoryRouter>
-        <App />
+        <ThemeProvider>
+          <App />
+        </ThemeProvider>
       </MemoryRouter>
     );
     fireEvent.click(screen.getByText(/Sign Up/));

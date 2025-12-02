@@ -19,3 +19,12 @@ jest.mock('./src/services/AuthService', () => ({
 jest.mock('./src/config/config', () => ({
   getAPIBaseURL: () => 'http://localhost:5001/api',
 }));
+
+// mock window.matchmedia function in themecontext since jest not working
+Object.defineProperty(window, "matchMedia", {
+  writable: true,
+  value: jest.fn().mockImplementation((query) => ({
+    matches: true,
+    media: query,
+  })),
+});
