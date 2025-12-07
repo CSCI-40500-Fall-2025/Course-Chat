@@ -47,6 +47,8 @@ const CourseChatPage = () => {
       setIsSummarizing(true);
       const res = await axios.get(`${api}/api/chats/${course._id}/summarizer`);
       setSummary(res.data.message);
+      // create a placeholder text a user would write based off ai using the gemini api
+      typeWriter(res.data.placeholder, 40);
     } catch (error) {
       toast.warn("Error in generating summary.");
       handleError(error);
@@ -118,6 +120,20 @@ const CourseChatPage = () => {
     setShowML(false);
     setIsModalOpen(true);
     fetchSummary();
+  };
+
+  // AI writing animation
+  const typeWriter = (text: string, speed: number) => {
+    setNewMessage(text[0]);
+    let index = 0;
+    const interval = setInterval(() => {
+      if (index < text.length - 1) {
+        setNewMessage((prev) => prev + text[index]);
+        index++;
+      } else {
+        clearInterval(interval);
+      }
+    }, speed);
   };
 
   return (

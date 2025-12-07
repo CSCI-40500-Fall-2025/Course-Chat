@@ -30,14 +30,25 @@ export const summarizeMessages = async (req, res) => {
     const courseStatus = course.courseStatus;
     const query = `Using the following messages data output a summary. \n \ 
     The data will start on the next line and will be a json object. Ignore all data besides sender.username and the content for each json object. You are summarizing for the course ${courseCode}, titled ${courseTitle}, with a status of ${courseStatus}. In the summary mention the course information.
-     You are summarizing content from a course group chat. Summarize the content from each object and specify who sent what content when summarizing. DO NOT just list out who said what but instead just give a paragraph summary, keeping it short. Additionally, include key details on the course, assignments, projects, or any coursework for the course in the summary. Make the summary flow.  Here is the data: \n \
+     You are summarizing content from a course group chat. Summarize the content from each object and specify who sent what content when summarizing. DO NOT just list out who said what but instead just give a paragraph summary, keeping it short. Additionally, include key details on the course, assignments, projects, or any coursework for the course in the summary. Make the summary flow.  
+     Additionally, also create a message a user would write based on the summary in around 1-2 sentences mainly asking a question or for clarification. Return your answer ONLY in valid JSON with the structure, DO NOT INCLUDE ANY BACKTICKS (\`) or the word JSON JUST ONLY OUTPUT in the structure:
+     
+     {
+      "summary": "...",
+      "placeholderMessage": "..."
+     }
+     Here is the data: \n \
         ${messages}
     `;
     const response = await ai.models.generateContent({
       model: "gemini-2.5-flash",
       contents: query,
     });
-    return res.status(200).json({ message: response.text });
+    const text = response.text;
+    const { summary, placeholderMessage } = JSON.parse(text);
+    return res
+      .status(200)
+      .json({ message: summary, placeholder: placeholderMessage });
   } catch (error) {
     logger.error(`Error in summarizing message (ML): ${error.message}`);
     return res
