@@ -35,6 +35,8 @@ const logger = winston.createLogger({
 });
 
 // cw for my account
+/*
+Removed Cloudwatch Logging for billing concerns
 const cw = new WinstonCloudwatch({
   logGroupName: "Course-Chat",
   logStreamName: `Course-Chat-Winston-Logging`,
@@ -45,5 +47,5 @@ const cw = new WinstonCloudwatch({
 });
 
 logger.add(cw);
-
+*/
 export default logger;
